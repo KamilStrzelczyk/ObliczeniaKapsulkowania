@@ -10,9 +10,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 @Composable
@@ -41,17 +39,19 @@ fun CalculationsScreen(
             ) {
                 TextField(
                     modifier = Modifier
-                        .weight(2f),
+                        .weight(2f)
+                        .padding(5.dp),
                     value = "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = state.fullBoxesHint)})
+                    label = { Text(text = state.fullBoxesHint) })
 
                 TextField(
                     modifier = Modifier
-                        .weight(1f),
-                    value = "",
-                    onValueChange = {},
+                        .weight(1f)
+                        .padding(5.dp),
+                    value = state.fullBoxes,
+                    onValueChange = { calculationsViewModel.onFullBoxesChanged(it) },
                     label = { Text(text = "") })
             }
 
@@ -61,17 +61,19 @@ fun CalculationsScreen(
             ) {
                 TextField(
                     modifier = Modifier
-                        .weight(2f),
+                        .weight(2f)
+                        .padding(5.dp),
                     value = "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = state.restOfBoxesHint ) })
+                    label = { Text(text = state.restOfBoxesHint) })
 
                 TextField(
                     modifier = Modifier
-                        .weight(1f),
-                    value = "",
-                    onValueChange = {},
+                        .weight(1f)
+                        .padding(5.dp),
+                    value = state.restOfBoxes,
+                    onValueChange = { calculationsViewModel.onRestBoxesChanged(it) },
                     label = { Text(text = "") })
             }
 
@@ -80,61 +82,153 @@ fun CalculationsScreen(
             Text(text = "Wagi kapsułek")
 
             Spacer(modifier = Modifier.height(20.dp))
-
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text(text = "Netto") })
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text(text = "Brutto") })
-
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(text = "Wynik")
-            Spacer(modifier = Modifier.height(20.dp))
-
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text(text = "Ilość odpadu") })
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text(text = "Ilość wyprodukowanych kapsułek") })
-
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text(text = "Wydajność") })
-
-            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 TextField(
                     modifier = Modifier
-                        .weight(2f),
+                        .weight(2f)
+                        .padding(5.dp),
                     value = "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = "Pozostała ilość kapsułek") })
+                    label = { Text(text = "Netto") })
 
                 TextField(
                     modifier = Modifier
-                        .weight(1f),
+                        .weight(1f)
+                        .padding(5.dp),
                     value = "",
                     onValueChange = {},
                     label = { Text(text = "") })
+            }
+
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(5.dp),
+                    value = "",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(text = state.capsulesGrossHint) })
+
+                TextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(5.dp),
+                    value = state.capsulesGross,
+                    onValueChange = { calculationsViewModel.onCapsulesGrossChanged(it) },
+                    label = { Text(text = "") })
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(text = "Wynik")
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(5.dp),
+                    value = "",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(text = "Ilość odpadu") })
+
+                TextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(5.dp),
+                    value = "",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(text = "") })
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(5.dp),
+                    value = "",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(state.amountOfFillCapsulesHint) }
+                )
+
+                TextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(5.dp),
+                    readOnly = true,
+                    value = state.amountOfFillCapsules,
+                    onValueChange = {},
+                )
+            }
+
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(5.dp),
+                    value = "",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(text = "Wydajność") })
+
+                TextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(5.dp),
+                    value = "",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(text = "") })
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                ) {
+                    TextField(
+                        modifier = Modifier
+                            .weight(2f)
+                            .padding(5.dp),
+                        value = "",
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(text = "Pozostała ilość kapsułek") })
+
+                    TextField(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(5.dp),
+                        value = "",
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(text = "") })
+                }
+
             }
 
 
