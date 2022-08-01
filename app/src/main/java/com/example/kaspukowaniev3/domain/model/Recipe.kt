@@ -5,6 +5,7 @@ data class Recipe(
     val id: Int,
     val recipeName: String,
     val doseWeight: Double,
-    var capsulesNet: Int,
-    var capsulesGross: Int,
+    val capsulesNet: Double,
+    val capsulesGross: Double,
+    val sample: Int,
 )
