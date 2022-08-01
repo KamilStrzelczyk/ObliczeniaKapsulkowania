@@ -1,6 +1,7 @@
 package com.example.kaspukowaniev3.infostructure.repository
 
 import android.media.DrmInitData
+import androidx.compose.ui.text.font.FontWeight
 import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import javax.inject.Inject
@@ -10,7 +11,7 @@ import javax.inject.Singleton
 
 
 class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
-   private val list = listOf(
+    private val list = listOf(
         Recipe(
             id = 1,
             recipeName = "RAM/AML 5/5",
@@ -44,9 +45,17 @@ class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
             sample = 340,
         ),
     )
-
-    override fun getRecipe(id: Int)  = list.first{it.id==id}
+    var amountOfCapsules: String = ""
+    var boxWeight: String = ""
+    override fun getRecipe(id: Int) = list.first { it.id == id }
 
 
     override fun getAll() = list
+    override fun saveData(amountOfCapsules: String, boxWeight: String) {
+        this.amountOfCapsules = amountOfCapsules
+        this.boxWeight = boxWeight
+
+    }
+
+    override fun getAmount(): String = amountOfCapsules
 }

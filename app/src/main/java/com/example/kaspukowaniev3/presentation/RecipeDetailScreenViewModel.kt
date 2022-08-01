@@ -1,7 +1,6 @@
 package com.example.kaspukowaniev3.presentation
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipeDetailScreenViewModel @Inject constructor(
-    private val getAllRecipeRepository: RecipeRepository,
+    private val recipeRepository: RecipeRepository,
     private val calculateAmountOfSamples: CalculateAmountOfSamplesUseCase,
     private val calculateAmountOfBoxes: CalculateAmountOfBoxesUseCase,
 ) : ViewModel() {
@@ -21,7 +20,7 @@ class RecipeDetailScreenViewModel @Inject constructor(
     private lateinit var recipe: Recipe
 
     fun initData(id: Int) {
-        val newRecipe = getAllRecipeRepository.getRecipe(id)
+        val newRecipe = recipeRepository.getRecipe(id)
 //        if (this::recipe.isInitialized && newRecipe.id != recipe.id) {
 //            updateState(ViewModelState()
 //            )
@@ -78,6 +77,10 @@ class RecipeDetailScreenViewModel @Inject constructor(
         updateState(state.value.copy(
             showInfoDialog = false
         ))
+    }
+
+    fun save () {
+        recipeRepository.saveData(state.value.amountOfCapsules,state.value.boxWeight,)
     }
 
     private fun updateState(state: ViewModelState) {

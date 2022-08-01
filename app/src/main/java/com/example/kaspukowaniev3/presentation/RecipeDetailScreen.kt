@@ -134,6 +134,7 @@ fun RecipeDetailScreen(
 
             Button(
                 onClick = {
+                    viewModel.save()
                     navController.navigate(Screen.CalculationsScreen.route)
                 })
             {
@@ -161,11 +162,11 @@ fun InfoDialog(
             },
             text = {
                 Column() {
-                    Text(text = state.recipeName)
-                    Text(text = String.format("%.7f", state.doseWeight))
-                    Text(text = String.format("%.7f", state.capsulesNet))
-                    Text(text = String.format("%.7f", state.capsulesGross))
-                    Text(text = "${state.sample.toString()}.szt")
+                    Text(text = "Wybrana receptura : ${state.recipeName}")
+                    Text(text = "Doza              : ${String.format("%.7f",state.doseWeight)}.kg")
+                    Text(text = "Kapsułka netto    : ${String.format("%.7f",state.capsulesNet)}.kg")
+                    Text(text = "Kapsułka brutto   : ${String.format("%.7f",state.capsulesGross)}.kg")
+                    Text(text = "Ilość prób        : ${state.sample.toString()}.szt")
                 }
             },
             buttons = {
