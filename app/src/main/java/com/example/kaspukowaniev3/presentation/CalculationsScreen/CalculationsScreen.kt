@@ -1,4 +1,4 @@
-package com.example.kaspukowaniev3.presentation
+package com.example.kaspukowaniev3.presentation.CalculationsScreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -92,14 +92,14 @@ fun CalculationsScreen(
                     value = "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = "Netto") })
+                    label = { Text(state.capsulesNettHint) })
 
                 TextField(
                     modifier = Modifier
                         .weight(1f)
                         .padding(5.dp),
                     value = "",
-                    onValueChange = {},
+                    onValueChange = {calculationsViewModel.onCapsulesNettChanged(it)},
                     label = { Text(text = "") })
             }
 
@@ -116,7 +116,7 @@ fun CalculationsScreen(
                     value = "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = state.capsulesGrossHint) })
+                    label = { Text(state.capsulesGrossHint) })
 
                 TextField(
                     modifier = Modifier

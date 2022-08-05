@@ -1,8 +1,9 @@
-package com.example.kaspukowaniev3.presentation
+package com.example.kaspukowaniev3.presentation.RecipeTypesScreen
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.kaspukowaniev3.domain.usecase.GetAllRecipesUseCase
+import com.example.kaspukowaniev3.presentation.RecipeRowData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

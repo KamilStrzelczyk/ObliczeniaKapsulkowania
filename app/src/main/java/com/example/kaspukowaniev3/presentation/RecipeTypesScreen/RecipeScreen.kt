@@ -1,4 +1,4 @@
-package com.example.kaspukowaniev3.presentation
+package com.example.kaspukowaniev3.presentation.RecipeTypesScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.kaspukowaniev3.domain.usecase.GetAllRecipesUseCase
+import com.example.kaspukowaniev3.presentation.RecipeRowData
+import com.example.kaspukowaniev3.presentation.Screen
 
 
 @Composable

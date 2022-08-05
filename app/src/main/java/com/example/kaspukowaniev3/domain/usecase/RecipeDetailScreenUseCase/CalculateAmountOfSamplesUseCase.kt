@@ -1,4 +1,4 @@
-package com.example.kaspukowaniev3.domain.usecase
+package com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase
 
 import java.math.RoundingMode
 import javax.inject.Inject

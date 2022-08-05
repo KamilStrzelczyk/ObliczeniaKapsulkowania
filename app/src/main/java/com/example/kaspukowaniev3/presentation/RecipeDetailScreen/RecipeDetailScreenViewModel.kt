@@ -1,11 +1,11 @@
-package com.example.kaspukowaniev3.presentation
+package com.example.kaspukowaniev3.presentation.RecipeDetailScreen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
-import com.example.kaspukowaniev3.domain.usecase.CalculateAmountOfBoxesUseCase
-import com.example.kaspukowaniev3.domain.usecase.CalculateAmountOfSamplesUseCase
+import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfBoxesUseCase
+import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfSamplesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -28,9 +28,9 @@ class RecipeDetailScreenViewModel @Inject constructor(
         recipe = newRecipe
     }
 
-    fun onWeightChanged(weight: String) {
+    fun onWeightChanged(weightOfPowder: String) {
         val boxAmount = calculateAmountOfBoxes(
-            weight,
+            weightOfPowder,
             state.value.boxWeight,
             recipe.doseWeight,
             recipe.capsulesGross)
@@ -38,14 +38,14 @@ class RecipeDetailScreenViewModel @Inject constructor(
         updateState(state.value.copy(
             boxAmount = boxAmount,
             boxSample = sample,
-            weight = weight,
+            weightOfPowder = weightOfPowder,
         ))
     }
 
     fun onBoxWeightChanged(boxWeight: String) {
         val boxAmount = calculateAmountOfBoxes(
             boxWeight,
-            state.value.weight,
+            state.value.weightOfPowder,
             recipe.doseWeight,
             recipe.capsulesGross)
         val samples = calculateAmountOfSamples(boxAmount, recipe.sample)
@@ -80,7 +80,7 @@ class RecipeDetailScreenViewModel @Inject constructor(
     }
 
     fun save () {
-        recipeRepository.saveData(state.value.amountOfCapsules,state.value.boxWeight,)
+        recipeRepository.saveData(state.value.amountOfCapsules,state.value.boxWeight,state.value.weightOfPowder)
     }
 
     private fun updateState(state: ViewModelState) {
@@ -88,7 +88,7 @@ class RecipeDetailScreenViewModel @Inject constructor(
     }
 
     data class ViewModelState(
-        val weight: String = "",
+        val weightOfPowder: String = "",
         val amountOfCapsules: String = "",
         val boxWeight: String = "",
         val weightHint: String = "Masa pobranego proszku",
