@@ -47,13 +47,16 @@ class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
     )
     var amountOfCapsules: String = ""
     var boxWeight: String = ""
+    var weightOfPowder: String = ""
+
     override fun getRecipe(id: Int) = list.first { it.id == id }
 
 
     override fun getAll() = list
-    override fun saveData(amountOfCapsules: String, boxWeight: String) {
+    override fun saveData(amountOfCapsules: String, boxWeight: String,  weightOfPowder: String) {
         this.amountOfCapsules = amountOfCapsules
         this.boxWeight = boxWeight
+        this.weightOfPowder = weightOfPowder
 
     }
 

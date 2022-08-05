@@ -13,7 +13,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.kaspukowaniev3.presentation.*
+import com.example.kaspukowaniev3.presentation.CalculationsScreen.CalculationsScreen
+import com.example.kaspukowaniev3.presentation.CalculationsScreen.CalculationsScreenViewModel
+import com.example.kaspukowaniev3.presentation.RecipeDetailScreen.RecipeDetailScreen
+import com.example.kaspukowaniev3.presentation.RecipeDetailScreen.RecipeDetailScreenViewModel
+import com.example.kaspukowaniev3.presentation.RecipeTypesScreen.RecipeScreen
+import com.example.kaspukowaniev3.presentation.RecipeTypesScreen.RecipeTypesViewModel
 import com.example.kaspukowaniev3.presentation.Screen.*
 import com.example.kaspukowaniev3.ui.theme.Kaspułkowaniev3Theme
 import dagger.hilt.android.AndroidEntryPoint

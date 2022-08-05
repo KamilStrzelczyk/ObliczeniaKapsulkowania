@@ -1,5 +1,6 @@
 package com.example.kaspukowaniev3.domain.usecase
 
+import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfSamplesUseCase
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 

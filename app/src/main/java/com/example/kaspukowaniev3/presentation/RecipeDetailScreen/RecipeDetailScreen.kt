@@ -1,4 +1,4 @@
-package com.example.kaspukowaniev3.presentation
+package com.example.kaspukowaniev3.presentation.RecipeDetailScreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +13,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kaspukowaniev3.R
+import com.example.kaspukowaniev3.presentation.Screen
 
 @Composable
 
@@ -54,7 +55,7 @@ fun RecipeDetailScreen(
 
             TextField(
                 maxLines = 1,
-                value = state.weight,
+                value = state.weightOfPowder,
                 onValueChange = { viewModel.onWeightChanged(it) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 label = { Text(state.weightHint) }

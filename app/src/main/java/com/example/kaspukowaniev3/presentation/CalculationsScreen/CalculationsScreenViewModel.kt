@@ -1,10 +1,12 @@
-package com.example.kaspukowaniev3.presentation
+package com.example.kaspukowaniev3.presentation.CalculationsScreen
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.ViewModel
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
-import com.example.kaspukowaniev3.domain.usecase.CalculateAmountOfFillCapsulesUseCase
+import com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase.CalculateAmountOfFillCapsulesUseCase
+import com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase.CalculateAmountOfRemainingCapsulesUseCase
+import com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase.CalculateAmountOfWastePowderUseCase
+import com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase.CalculateOfEfficiencyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -12,6 +14,9 @@ import javax.inject.Inject
 class CalculationsScreenViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val calculateAmountOfFillCapsules: CalculateAmountOfFillCapsulesUseCase,
+    private val calculateAmountOfWastePowder: CalculateAmountOfWastePowderUseCase,
+    private val calculateAmountOfRemainingCapsules: CalculateAmountOfRemainingCapsulesUseCase,
+    private val calculateOfEfficiency: CalculateOfEfficiencyUseCase,
 ) : ViewModel() {
     val state = mutableStateOf(ViewModelState())
 
@@ -19,8 +24,10 @@ class CalculationsScreenViewModel @Inject constructor(
     init {
         val amountOfCapsules = recipeRepository.getAmount()
         val boxWeight = recipeRepository.getAmount()
+        val weightOfPowder = recipeRepository.getAmount()
         state.value = state.value.copy(amountOfCapsules = amountOfCapsules)
         state.value = state.value.copy(boxWeight = boxWeight)
+        state.value = state.value.copy(weightOfPowder = weightOfPowder)
     }
 
     fun onFullBoxesChanged(fullBoxes: String) {
@@ -50,7 +57,7 @@ class CalculationsScreenViewModel @Inject constructor(
         ))
     }
 
-    fun onCapsulesGrossChanged (capsulesGross: String) {
+    fun onCapsulesGrossChanged(capsulesGross: String) {
         val amountOfFillCapsules = calculateAmountOfFillCapsules(
             capsulesGross,
             state.value.fullBoxes,
@@ -63,8 +70,16 @@ class CalculationsScreenViewModel @Inject constructor(
         ))
     }
 
-    fun oncapsulesNettChanged () {
-
+    fun onCapsulesNettChanged(capsulesNett: String) {
+        val wasteOfPowder = calculateAmountOfWastePowder(
+            capsulesNett,
+            state.value.amountOfFillCapsules,
+            state.value.weightOfPowder,
+            )
+        updateState(state.value.copy(
+            wasteOfPowder = wasteOfPowder,
+            capsulesNett = capsulesNett,
+        ))
     }
 
     private fun updateState(state: ViewModelState) {
@@ -80,12 +95,14 @@ class CalculationsScreenViewModel @Inject constructor(
         val capsulesGrossHint: String = "Brutto",
         val capsulesNett: String = "",
         val capsulesNettHint: String = "Netto",
-        val waste: String = "",
+        val wasteOfPowder: String = "",
         val amountOfFillCapsules: String = "",
         val amountOfFillCapsulesHint: String = "Ilość gotowych kaspułek",
         val efficiency: String = "",
         val restOfCapsules: String = "",
         val amountOfCapsules: String = "",
         val boxWeight: String = "",
+        val wrongCapsules: String = "",
+        val weightOfPowder: String = "",
     )
 }
