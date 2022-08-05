@@ -1,6 +1,7 @@
 package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
 import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import javax.inject.Inject
 
 class CalculateAmountOfWastePowderUseCase @Inject constructor() {
@@ -17,7 +18,7 @@ class CalculateAmountOfWastePowderUseCase @Inject constructor() {
     ) {
         ((amountOfFillCapsules.toDouble() * capsulesNett.toDouble()) - weightOfPowder.toDouble()).toString()
     } else {
-        Utils.EMPTY_STRING
+        EMPTY_STRING
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase
 
 import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import java.math.RoundingMode
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class CalculateAmountOfBoxesUseCase @Inject constructor() {
             .setScale(0, RoundingMode.UP)
             .toString()
     } else {
-        Utils.EMPTY_STRING
+        EMPTY_STRING
     }
 
     private fun isDataCorrect(

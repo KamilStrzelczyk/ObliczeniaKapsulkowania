@@ -1,6 +1,7 @@
 package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
-import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
+import com.example.kaspukowaniev3.presentation.Utils.Companion.VALUE_FOR_EFFICIENCY
 import javax.inject.Inject
 
 class CalculateOfEfficiencyUseCase @Inject constructor() {
@@ -13,9 +14,9 @@ class CalculateOfEfficiencyUseCase @Inject constructor() {
             weightOfPowder,
         )
     ) {
-        ((74.37 * amountOfFillCapsules.toInt()) / weightOfPowder.toDouble()).toString()
+        ((VALUE_FOR_EFFICIENCY * amountOfFillCapsules.toInt()) / weightOfPowder.toDouble()).toString()
     } else {
-        Utils.EMPTY_STRING
+        EMPTY_STRING
     }
 
     private fun isDataCorrect(
