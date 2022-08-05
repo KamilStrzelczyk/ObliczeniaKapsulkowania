@@ -1,5 +1,7 @@
 package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
+import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import javax.inject.Inject
 
 class CalculateAmountOfFillCapsulesUseCase @Inject constructor() {
@@ -9,27 +11,26 @@ class CalculateAmountOfFillCapsulesUseCase @Inject constructor() {
         fullBoxes: String,
         restOfBoxes: String,
         capsulesGross: String,
-    ): String {
-        return if (isDataCorrect(
-                boxWeight,
-                fullBoxes,
-                restOfBoxes,
-                capsulesGross,
-            )
-        ) {
-            (((boxWeight.toInt() * fullBoxes.toInt()) + restOfBoxes.toDouble()) / capsulesGross.toDouble()).toString()
-        } else {
-            ""
-        }
-
-
+    ): String = if (isDataCorrect(
+            fullBoxes,
+            restOfBoxes,
+            capsulesGross,
+        )
+    ) {
+        (((boxWeight.toInt() * fullBoxes.toInt()) + restOfBoxes.toDouble()) / capsulesGross.toDouble()).toString()
+    } else {
+        EMPTY_STRING
     }
 
     private fun isDataCorrect(
-        boxWeight: String,
         fullBoxes: String,
         restOfBoxes: String,
         capsulesGross: String,
     ) =
-        boxWeight.isNotBlank() && fullBoxes.isNotBlank() && restOfBoxes.isNotBlank() && capsulesGross.isNotBlank() && boxWeight.toInt() != 0 && fullBoxes.toInt() != 0 && restOfBoxes.toDouble() != 0.0 && capsulesGross.toDouble() != 0.0
+        fullBoxes.isNotBlank() &&
+                restOfBoxes.isNotBlank() &&
+                capsulesGross.isNotBlank() &&
+                fullBoxes.toInt() != 0 &&
+                restOfBoxes.toDouble() != 0.0 &&
+                capsulesGross.toDouble() != 0.0
 }

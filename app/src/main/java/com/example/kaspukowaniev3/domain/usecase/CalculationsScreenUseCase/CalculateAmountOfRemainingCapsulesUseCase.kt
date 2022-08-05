@@ -1,5 +1,6 @@
 package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
+import com.example.kaspukowaniev3.presentation.Utils
 import javax.inject.Inject
 
 class CalculateAmountOfRemainingCapsulesUseCase @Inject constructor() {
@@ -8,26 +9,25 @@ class CalculateAmountOfRemainingCapsulesUseCase @Inject constructor() {
         amountOfCapsules: String,
         amountOfFillCapsules: String,
         wrongCapsules: String,
-    ): String {
-        return if (isDataCorrect(
-                amountOfCapsules,
-                amountOfFillCapsules,
-                wrongCapsules,
-            )
-        ) {
-            (amountOfCapsules.toInt() - amountOfFillCapsules.toInt() - wrongCapsules.toInt()).toString()
-        } else {
-            return ""
-        }
-
+    ): String = if (isDataCorrect(
+            amountOfFillCapsules,
+            wrongCapsules,
+        )
+    ) {
+        (amountOfCapsules.toInt() - amountOfFillCapsules.toInt() - wrongCapsules.toInt()).toString()
+    } else {
+        Utils.EMPTY_STRING
     }
 
+
     private fun isDataCorrect(
-        amountOfCapsules: String,
         amountOfFillCapsules: String,
         wrongCapsules: String,
     ) =
-        amountOfFillCapsules.isNotBlank() && amountOfCapsules.isNotBlank() && amountOfFillCapsules.toInt() != 0 && amountOfCapsules.toDouble() != 0.0 && wrongCapsules.isNotBlank() && wrongCapsules.toInt() != 0
+        amountOfFillCapsules.isNotBlank() &&
+                amountOfFillCapsules.toInt() != 0 &&
+                wrongCapsules.isNotBlank() &&
+                wrongCapsules.toInt() != 0
 
 }
 

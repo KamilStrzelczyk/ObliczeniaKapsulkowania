@@ -99,7 +99,7 @@ fun CalculationsScreen(
                         .weight(1f)
                         .padding(5.dp),
                     value = "",
-                    onValueChange = {calculationsViewModel.onCapsulesNettChanged(it)},
+                    onValueChange = { calculationsViewModel.onCapsulesNettChanged(it) },
                     label = { Text(text = "") })
             }
 
@@ -177,7 +177,6 @@ fun CalculationsScreen(
                     onValueChange = {},
                 )
             }
-
 
             Spacer(modifier = Modifier.height(20.dp))
 

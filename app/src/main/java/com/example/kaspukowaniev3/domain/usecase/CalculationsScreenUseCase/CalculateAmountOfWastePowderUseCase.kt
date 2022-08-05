@@ -1,5 +1,6 @@
 package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
+import com.example.kaspukowaniev3.presentation.Utils
 import javax.inject.Inject
 
 class CalculateAmountOfWastePowderUseCase @Inject constructor() {
@@ -8,17 +9,15 @@ class CalculateAmountOfWastePowderUseCase @Inject constructor() {
         amountOfFillCapsules: String,
         capsulesNett: String,
         weightOfPowder: String,
-    ): String {
-        return if (isDataCorrect(
-                amountOfFillCapsules,
-                capsulesNett,
-                weightOfPowder,
-            )
-        ) {
-            ((amountOfFillCapsules.toDouble() * capsulesNett.toDouble()) - weightOfPowder.toDouble()).toString()
-        } else {
-            ""
-        }
+    ): String = if (isDataCorrect(
+            amountOfFillCapsules,
+            capsulesNett,
+            weightOfPowder,
+        )
+    ) {
+        ((amountOfFillCapsules.toDouble() * capsulesNett.toDouble()) - weightOfPowder.toDouble()).toString()
+    } else {
+        Utils.EMPTY_STRING
     }
 
 
@@ -27,6 +26,11 @@ class CalculateAmountOfWastePowderUseCase @Inject constructor() {
         capsulesNett: String,
         weightOfPowder: String,
     ) =
-        amountOfFillCapsules.isNotBlank() && capsulesNett.isNotBlank() && amountOfFillCapsules.toInt() != 0 && capsulesNett.toDouble() != 0.0 && weightOfPowder.isNotBlank() && weightOfPowder.toDouble() != 0.0
+        amountOfFillCapsules.isNotBlank() &&
+                capsulesNett.isNotBlank() &&
+                amountOfFillCapsules.toInt() != 0 &&
+                capsulesNett.toDouble() != 0.0 &&
+                weightOfPowder.isNotBlank() &&
+                weightOfPowder.toDouble() != 0.0
 }
 // ( ilosć pełnych kapsułek * waga kapsułki netto) - ilość porsszku
