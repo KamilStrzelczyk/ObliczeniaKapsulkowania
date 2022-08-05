@@ -2,6 +2,7 @@ package com.example.kaspukowaniev3.presentation.CalculationsScreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -10,6 +11,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
@@ -51,6 +53,7 @@ fun CalculationsScreen(
                         .weight(1f)
                         .padding(5.dp),
                     value = state.fullBoxes,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onFullBoxesChanged(it) },
                     label = { Text(text = "") })
             }
@@ -73,6 +76,7 @@ fun CalculationsScreen(
                         .weight(1f)
                         .padding(5.dp),
                     value = state.restOfBoxes,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onRestBoxesChanged(it) },
                     label = { Text(text = "") })
             }
@@ -99,6 +103,7 @@ fun CalculationsScreen(
                         .weight(1f)
                         .padding(5.dp),
                     value = "",
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onCapsulesNettChanged(it) },
                     label = { Text(text = "") })
             }
@@ -123,12 +128,15 @@ fun CalculationsScreen(
                         .weight(1f)
                         .padding(5.dp),
                     value = state.capsulesGross,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onCapsulesGrossChanged(it) },
                     label = { Text(text = "") })
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            Text(text = "Wynik")
+
+            Text(text = "Odpad z procesu")
+
             Spacer(modifier = Modifier.height(20.dp))
 
             Row(
@@ -141,13 +149,41 @@ fun CalculationsScreen(
                     value = "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = "Ilość odpadu") })
+                    label = { Text(state.wrongCapsulesHint) })
 
                 TextField(
                     modifier = Modifier
                         .weight(1f)
                         .padding(5.dp),
+                    value = state.wrongCapsules,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    onValueChange = { calculationsViewModel.onWrongCapsulesChanged(it) },
+                    label = { Text(text = "") })
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(text = "Wynik")
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(5.dp),
                     value = "",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(state.restOfCapsulesHint) })
+
+                TextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(5.dp),
+                    value = state.restOfCapsules,
                     onValueChange = {},
                     readOnly = true,
                     label = { Text(text = "") })

@@ -45,9 +45,9 @@ class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
             sample = 340,
         ),
     )
-    var amountOfCapsules: String = ""
-    var boxWeight: String = ""
-    var weightOfPowder: String = ""
+    private var amountOfCapsules: String = ""
+    private var boxWeight: String = ""
+    private var weightOfPowder: String = ""
 
     override fun getRecipe(id: Int) = list.first { it.id == id }
 
@@ -61,4 +61,6 @@ class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
     }
 
     override fun getAmount(): String = amountOfCapsules
+    override fun getBoxWeight(): String = boxWeight
+    override fun weightOfPowder(): String = weightOfPowder
 }
