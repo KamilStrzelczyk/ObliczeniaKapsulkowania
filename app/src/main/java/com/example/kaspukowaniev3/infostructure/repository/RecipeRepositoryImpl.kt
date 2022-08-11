@@ -4,13 +4,17 @@ import android.media.DrmInitData
 import androidx.compose.ui.text.font.FontWeight
 import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
+import com.example.kaspukowaniev3.infostructure.database.DAO.RecipeDAO
+import com.example.kaspukowaniev3.infostructure.database.DAO.SeriesDAO
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 
 
-class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
+class RecipeRepositoryImpl @Inject constructor(
+    private val getRecipeDAO: RecipeDAO,
+) : RecipeRepository {
     private val list = listOf(
         Recipe(
             id = 1,
@@ -53,7 +57,7 @@ class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
 
 
     override fun getAll() = list
-    override fun saveData(amountOfCapsules: String, boxWeight: String,  weightOfPowder: String) {
+    override fun saveData(amountOfCapsules: String, boxWeight: String, weightOfPowder: String) {
         this.amountOfCapsules = amountOfCapsules
         this.boxWeight = boxWeight
         this.weightOfPowder = weightOfPowder

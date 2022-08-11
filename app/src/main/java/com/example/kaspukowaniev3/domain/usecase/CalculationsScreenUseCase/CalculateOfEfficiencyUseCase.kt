@@ -7,24 +7,24 @@ import javax.inject.Inject
 class CalculateOfEfficiencyUseCase @Inject constructor() {
 
     operator fun invoke(
-        amountOfFillCapsules: String,
+        weightOfFinishedProducts: String,
         weightOfPowder: String,
     ): String = if (isDataCorrect(
-            amountOfFillCapsules,
+            weightOfFinishedProducts,
             weightOfPowder,
         )
     ) {
-        ((VALUE_FOR_EFFICIENCY * amountOfFillCapsules.toInt()) / weightOfPowder.toDouble()).toString()
+        ((VALUE_FOR_EFFICIENCY * weightOfFinishedProducts.toDouble()) / weightOfPowder.toDouble()).toString()
     } else {
         EMPTY_STRING
     }
 
     private fun isDataCorrect(
-        amountOfFillCapsules: String,
+        weightOfFinishedProducts: String,
         weightOfPowder: String,
     ) =
-        amountOfFillCapsules.isNotBlank() &&
-                amountOfFillCapsules.toInt() != 0 &&
+        weightOfFinishedProducts.isNotBlank() &&
+                weightOfFinishedProducts.toDouble() != 0.0 &&
                 weightOfPowder.isNotBlank() &&
                 weightOfPowder.toDouble() != 0.0
 }

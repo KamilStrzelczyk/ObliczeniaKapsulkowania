@@ -11,7 +11,7 @@ class CalculateAmountOfRemainingCapsulesUseCase @Inject constructor() {
         amountOfCapsules: String,
         amountOfFillCapsules: String,
 
-    ): String = if (isDataCorrect(
+        ): String = if (isDataCorrect(
             amountOfFillCapsules,
             wrongCapsules,
         )

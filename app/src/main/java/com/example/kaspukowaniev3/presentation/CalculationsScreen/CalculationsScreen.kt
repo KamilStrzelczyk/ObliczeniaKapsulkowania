@@ -177,16 +177,17 @@ fun CalculationsScreen(
                     value = "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(state.restOfCapsulesHint) })
+                    label = { Text("Waga gotowego wyrobu") })
 
                 TextField(
                     modifier = Modifier
                         .weight(1f)
                         .padding(5.dp),
-                    value = state.restOfCapsules,
+                    value = state.weightOfFinishedProducts,
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = "") })
+
+                )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -211,7 +212,8 @@ fun CalculationsScreen(
                     readOnly = true,
                     value = state.amountOfFillCapsules,
                     onValueChange = {},
-                )
+
+                    )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -232,10 +234,9 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(1f)
                         .padding(5.dp),
-                    value = "",
+                    value = state.efficiency,
                     onValueChange = {},
-                    readOnly = true,
-                    label = { Text(text = "") })
+                )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -252,13 +253,13 @@ fun CalculationsScreen(
                         value = "",
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text(text = "Pozostała ilość kapsułek") })
+                        label = { Text(text = state.restOfCapsulesHint) })
 
                     TextField(
                         modifier = Modifier
                             .weight(1f)
                             .padding(5.dp),
-                        value = "",
+                        value = state.restOfCapsules,
                         onValueChange = {},
                         readOnly = true,
                         label = { Text(text = "") })
