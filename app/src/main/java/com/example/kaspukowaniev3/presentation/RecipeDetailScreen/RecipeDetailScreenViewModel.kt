@@ -6,6 +6,9 @@ import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfBoxesUseCase
 import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfSamplesUseCase
+import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.COMMA
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -29,8 +32,9 @@ class RecipeDetailScreenViewModel @Inject constructor(
     }
 
     fun onWeightChanged(weightOfPowder: String) {
+        val newValueWeight = weightOfPowder.replace(COMMA, Utils.DOT)
         val boxAmount = calculateAmountOfBoxes(
-            weightOfPowder,
+            newValueWeight,
             state.value.boxWeight,
             recipe.doseWeight,
             recipe.capsulesGross)
@@ -43,8 +47,9 @@ class RecipeDetailScreenViewModel @Inject constructor(
     }
 
     fun onBoxWeightChanged(boxWeight: String) {
+        val newBoxWeight = boxWeight.replace(COMMA, Utils.DOT)
         val boxAmount = calculateAmountOfBoxes(
-            boxWeight,
+            newBoxWeight,
             state.value.weightOfPowder,
             recipe.doseWeight,
             recipe.capsulesGross)
@@ -79,8 +84,10 @@ class RecipeDetailScreenViewModel @Inject constructor(
         ))
     }
 
-    fun save () {
-        recipeRepository.saveData(state.value.amountOfCapsules,state.value.boxWeight,state.value.weightOfPowder)
+    fun save() {
+        recipeRepository.saveData(state.value.amountOfCapsules,
+            state.value.boxWeight,
+            state.value.weightOfPowder)
     }
 
     private fun updateState(state: ViewModelState) {
@@ -88,19 +95,19 @@ class RecipeDetailScreenViewModel @Inject constructor(
     }
 
     data class ViewModelState(
-        val weightOfPowder: String = "",
-        val amountOfCapsules: String = "",
-        val boxWeight: String = "",
+        val weightOfPowder: String = EMPTY_STRING,
+        val amountOfCapsules: String = EMPTY_STRING,
+        val boxWeight: String = EMPTY_STRING,
         val weightHint: String = "Masa pobranego proszku",
         val amountOfCapsulesHint: String = "Pobrana ilość kapsułek",
         val boxHint: String = "Ilość kapsułek w pojemniku w kg",
         val boxAmountValue: String = "Ilość pojemników",
-        val boxAmount: String = "",
+        val boxAmount: String = EMPTY_STRING,
         val amountSampleValue: String = "Ilość prób",
-        val boxSample: String = "",
+        val boxSample: String = EMPTY_STRING,
         val buttonHint: String = "ROZLICZENIE",
         val showInfoDialog: Boolean = false,
-        val recipeName: String = "",
+        val recipeName: String = EMPTY_STRING,
         val doseWeight: Double = 0.0,
         val capsulesNet: Double = 0.0,
         val capsulesGross: Double = 0.0,

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase.*
 import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -37,6 +38,10 @@ class CalculationsScreenViewModel @Inject constructor(
             restOfBoxes = state.value.restOfBoxes,
             capsulesGross = state.value.capsulesGross,
         )
+        updateState(state.value.copy(
+            amountOfFillCapsules = amountOfFillCapsules,
+            fullBoxes = fullBoxes,
+        ))
         val amountofweight1 = calculateWeightOfFinishedProducts(
             fullBoxes = fullBoxes,
             boxWeight = state.value.boxWeight,
@@ -52,10 +57,7 @@ class CalculationsScreenViewModel @Inject constructor(
         updateState(state.value.copy(
             efficiency = efficiency
         ))
-        updateState(state.value.copy(
-            amountOfFillCapsules = amountOfFillCapsules,
-            fullBoxes = fullBoxes,
-        ))
+
     }
 
     fun onRestBoxesChanged(restOfBoxes: String) {
@@ -65,13 +67,17 @@ class CalculationsScreenViewModel @Inject constructor(
             boxWeight = state.value.boxWeight,
             capsulesGross = state.value.capsulesGross,
         )
-        val amountofweight = calculateWeightOfFinishedProducts(
+        updateState(state.value.copy(
+            amountOfFillCapsules = amountOfFillCapsules,
+            restOfBoxes = restOfBoxes,
+        ))
+        val amountOfWeight = calculateWeightOfFinishedProducts(
             restOfBoxes = restOfBoxes,
             boxWeight = state.value.boxWeight,
             fullBoxes = state.value.fullBoxes,
         )
         updateState(state.value.copy(
-            weightOfFinishedProducts = amountofweight,
+            weightOfFinishedProducts = amountOfWeight,
         ))
 
         val efficiency = calculateOfEfficiency(
@@ -80,11 +86,6 @@ class CalculationsScreenViewModel @Inject constructor(
         )
         updateState(state.value.copy(
             efficiency = efficiency
-        ))
-
-        updateState(state.value.copy(
-            amountOfFillCapsules = amountOfFillCapsules,
-            restOfBoxes = restOfBoxes,
         ))
     }
 
@@ -104,9 +105,9 @@ class CalculationsScreenViewModel @Inject constructor(
 
     fun onCapsulesNettChanged(capsulesNett: String) {
         val wasteOfPowder = calculateAmountOfWastePowder(
-            capsulesNett,
-            state.value.amountOfFillCapsules,
-            state.value.weightOfPowder,
+            capsulesNett = capsulesNett,
+            amountOfFillCapsules = state.value.amountOfFillCapsules,
+            weightOfPowder = state.value.weightOfPowder,
         )
         updateState(state.value.copy(
             wasteOfPowder = wasteOfPowder,
@@ -131,25 +132,40 @@ class CalculationsScreenViewModel @Inject constructor(
     }
 
     data class ViewModelState constructor(
-        val fullBoxes: String = "",
-        val fullBoxesHint: String = "Ilość pełnych wiader",
-        val restOfBoxes: String = "",
-        val restOfBoxesHint: String = "Ilość z niepełnych wiader",
-        val capsulesGross: String = "",
+        val fullBoxes: String = EMPTY_STRING,
+        val fullBoxesHint: String = "Ilość pełnych pojemników",
+        val restOfBoxes: String = EMPTY_STRING,
+        val restOfBoxesHint: String = "Ilość z niepełnych pojemników",
+        val capsulesGross: String = EMPTY_STRING,
         val capsulesGrossHint: String = "Brutto",
-        val capsulesNett: String = "",
+        val capsulesNett: String = EMPTY_STRING,
         val capsulesNettHint: String = "Netto",
-        val wasteOfPowder: String = "",
-        val amountOfFillCapsules: String = "",
+        val wasteOfPowderHint: String = "Odpad Proszku",
+        val wasteOfPowder: String = EMPTY_STRING,
+        val amountOfFillCapsules: String = EMPTY_STRING,
         val amountOfFillCapsulesHint: String = "Ilość gotowych kaspułek",
-        val efficiency: String = "",
+        val efficiencyText: String = "Wydajność",
+        val efficiency: String = EMPTY_STRING,
         val restOfCapsulesHint: String = "Pozostała ilość kapsułek",
-        val restOfCapsules: String = "",
-        val amountOfCapsules: String = "",
-        val boxWeight: String = "",
+        val restOfCapsules: String = EMPTY_STRING,
+        val amountOfCapsules: String = EMPTY_STRING,
+        val boxWeight: String = EMPTY_STRING,
         val wrongCapsulesHint: String = "Odpad",
-        val wrongCapsules: String = "",
-        val weightOfPowder: String = "",
-        val weightOfFinishedProducts: String = "",
+        val wrongCapsules: String = EMPTY_STRING,
+        val weightOfPowder: String = EMPTY_STRING,
+        val weightOfFinishedProductsText: String = "Waga gotowego wyrobu",
+        val weightOfFinishedProducts: String = EMPTY_STRING,
+        val buttonText: String = "Zapisz dane serii",
+
+        // LABELS
+        val capsuleWeightsLabel: String = "Wagi kapsułek",
+        val processWasteLabel: String = "Odpad z procesu",
+        val resultLabel: String = "Wynik",
+        val topAppBarLabel: String = "Rozliczenie kapsułkowania",
+
+        // Unit
+        val kg: String = "kg",
+        val mg: String = "mg",
+        val pc: String = "szt.",
     )
 }

@@ -2,6 +2,7 @@ package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import com.example.kaspukowaniev3.presentation.Utils.Companion.VALUE_FOR_EFFICIENCY
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class CalculateOfEfficiencyUseCase @Inject constructor() {
@@ -14,7 +15,10 @@ class CalculateOfEfficiencyUseCase @Inject constructor() {
             weightOfPowder,
         )
     ) {
-        ((VALUE_FOR_EFFICIENCY * weightOfFinishedProducts.toDouble()) / weightOfPowder.toDouble()).toString()
+        ((VALUE_FOR_EFFICIENCY * weightOfFinishedProducts.toDouble()) / weightOfPowder.toDouble())
+            .toBigDecimal()
+            .setScale(1, RoundingMode.HALF_UP)
+            .toString()
     } else {
         EMPTY_STRING
     }

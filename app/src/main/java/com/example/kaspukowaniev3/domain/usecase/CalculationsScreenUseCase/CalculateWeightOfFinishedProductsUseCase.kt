@@ -11,17 +11,23 @@ class CalculateWeightOfFinishedProductsUseCase @Inject constructor() {
     ): String = if (isDataCorrect(
             fullBoxes,
             restOfBoxes,
-        ) ) {
+            boxWeight,
+        )
+    ) {
         ((boxWeight.toInt() * fullBoxes.toInt()) + restOfBoxes.toDouble()).toString()
     } else {
         Utils.EMPTY_STRING
     }
+
     private fun isDataCorrect(
         fullBoxes: String,
         restOfBoxes: String,
+        boxWeight: String,
     ) =
-        fullBoxes.isNotBlank() &&
-                restOfBoxes.isNotBlank() &&
-                fullBoxes.toInt() != 0 &&
-                restOfBoxes.toDouble() != 0.0
+        fullBoxes.isNotBlank()
+                && fullBoxes.toInt() != 0
+                && restOfBoxes.isNotBlank()
+                && restOfBoxes.toDouble() != 0.0
+                && boxWeight.toInt() != 0
+                && boxWeight.isNotBlank()
 }

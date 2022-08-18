@@ -10,24 +10,22 @@ class CalculateAmountOfRemainingCapsulesUseCase @Inject constructor() {
         wrongCapsules: String,
         amountOfCapsules: String,
         amountOfFillCapsules: String,
-
-        ): String = if (isDataCorrect(
+    ): String = if (isDataCorrect(
             amountOfFillCapsules,
             wrongCapsules,
         )
     ) {
-        (amountOfCapsules.toInt() - amountOfFillCapsules.toDouble() - wrongCapsules.toInt()).toString()
+        (amountOfCapsules.toInt() - amountOfFillCapsules.toInt() - wrongCapsules.toInt()).toString()
     } else {
         EMPTY_STRING
     }
-
 
     private fun isDataCorrect(
         amountOfFillCapsules: String,
         wrongCapsules: String,
     ) =
         amountOfFillCapsules.isNotBlank() &&
-                amountOfFillCapsules.toDouble() != 0.0 &&
+                amountOfFillCapsules.toInt() != 0 &&
                 wrongCapsules.isNotBlank() &&
                 wrongCapsules.toInt() != 0
 

@@ -154,7 +154,6 @@ fun InfoDialog(
     state: RecipeDetailScreenViewModel.ViewModelState,
     onDismissOpenDialog: () -> Unit,
 ) {
-
     if (state.showInfoDialog) {
         AlertDialog(
             onDismissRequest = {},
@@ -172,7 +171,8 @@ fun InfoDialog(
             },
             buttons = {
                 Row(
-                    modifier = Modifier.padding(all = 8.dp),
+                    modifier = Modifier
+                        .padding(all = 8.dp),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Button(

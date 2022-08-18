@@ -6,6 +6,7 @@ import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.infostructure.database.DAO.RecipeDAO
 import com.example.kaspukowaniev3.infostructure.database.DAO.SeriesDAO
+import com.example.kaspukowaniev3.presentation.Utils
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -49,9 +50,9 @@ class RecipeRepositoryImpl @Inject constructor(
             sample = 340,
         ),
     )
-    private var amountOfCapsules: String = ""
-    private var boxWeight: String = ""
-    private var weightOfPowder: String = ""
+    private var amountOfCapsules: String = Utils.EMPTY_STRING
+    private var boxWeight: String = Utils.EMPTY_STRING
+    private var weightOfPowder: String = Utils.EMPTY_STRING
 
     override fun getRecipe(id: Int) = list.first { it.id == id }
 
