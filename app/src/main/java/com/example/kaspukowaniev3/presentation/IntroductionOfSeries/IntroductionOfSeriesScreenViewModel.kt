@@ -14,7 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class IntroductionOfSeriesScreenViewModel @Inject constructor(
     private val loadSeries: LoadSeriesUseCase,
-    private val saveNewSeriesUseCase: SaveNewSeriesUseCase
+    private val saveNewSeriesUseCase: SaveNewSeriesUseCase,
+    private val Seria :Seria
 
 ) :
     ViewModel() {
@@ -42,8 +43,7 @@ class IntroductionOfSeriesScreenViewModel @Inject constructor(
     }
 
     fun onAddClicked() {
-        saveNewSeriesUseCase (
-            state.value.numberOfSeries
+        saveNewSeriesUseCase.upsertdata (Seria.copy(numberOfSeries = Seria.numberOfSeries)
                 )
         updateState(state.value.copy(
             showInfoDialog = false
