@@ -27,7 +27,7 @@ fun RecipeScreen(
     Scaffold(
         topBar = {
             TopAppBar {
-                Text(text = "Kapsułkowanie")
+                Text(text = "Wybór receptury")
 
             }
         }
@@ -35,8 +35,10 @@ fun RecipeScreen(
         LazyColumn(contentPadding = PaddingValues(15.dp)) {
             items(viewModel.loadData()) {
                 RecipeRow(it,
-                    onClick = { recipeId ->
-                        navController.navigate("${Screen.RecipeDetailScreen.route}/$recipeId")
+//                    onClick = { recipeId ->
+//                        navController.navigate("${Screen.RecipeDetailScreen.route}/$recipeId")
+                        onClick = { recipeId ->
+                            navController.navigate("${Screen.IntroductionOfSeriesScreen.route}/$recipeId")
                     })
 
             }
@@ -58,7 +60,7 @@ fun RecipeRow(
             .clickable { onClick(recipeRowData.id) },
         verticalArrangement = Arrangement.Center
     ) {
-        androidx.compose.material.Text(text = recipeRowData.name)
+        Text(text = recipeRowData.name)
 
     }
 

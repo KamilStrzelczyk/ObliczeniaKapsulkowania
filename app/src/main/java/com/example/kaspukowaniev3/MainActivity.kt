@@ -15,6 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.kaspukowaniev3.presentation.CalculationsScreen.CalculationsScreen
 import com.example.kaspukowaniev3.presentation.CalculationsScreen.CalculationsScreenViewModel
+import com.example.kaspukowaniev3.presentation.IntroductionOfSeries.IntroductionOfSeriesScreen
+import com.example.kaspukowaniev3.presentation.IntroductionOfSeries.IntroductionOfSeriesScreenViewModel
 import com.example.kaspukowaniev3.presentation.RecipeDetailScreen.RecipeDetailScreen
 import com.example.kaspukowaniev3.presentation.RecipeDetailScreen.RecipeDetailScreenViewModel
 import com.example.kaspukowaniev3.presentation.RecipeTypesScreen.RecipeScreen
@@ -27,7 +29,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val calculationsViewModel: CalculationsScreenViewModel by viewModels()
     private val viewModel: RecipeTypesViewModel by viewModels()
-    private val detailviewModel: RecipeDetailScreenViewModel by viewModels()
+    private val detailViewModel: RecipeDetailScreenViewModel by viewModels()
+    private val introductionOfSeriesScreenViewModel: IntroductionOfSeriesScreenViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,12 +48,21 @@ class MainActivity : ComponentActivity() {
                             RecipeScreen(navController, viewModel)
                         }
                         composable(
+                            route = "${IntroductionOfSeriesScreen.route}/{id}",
+                            arguments = listOf(navArgument("id") { type = NavType.IntType })
+                        ) {navBackStackEntry ->
+                            val id: Int = navBackStackEntry.arguments?.getInt("id")?: 0
+                            introductionOfSeriesScreenViewModel.initData(id)
+                            IntroductionOfSeriesScreen(
+                                navController, introductionOfSeriesScreenViewModel)
+                        }
+                        composable(
                             route = "${RecipeDetailScreen.route}/{id}",
                             arguments = listOf(navArgument("id") { type = NavType.IntType })
                         ) { navBackStackEntry ->
                             val id: Int = navBackStackEntry.arguments?.getInt("id") ?: 0
-                            detailviewModel.initData(id)
-                            RecipeDetailScreen(navController, detailviewModel)
+                            detailViewModel.initData(id)
+                            RecipeDetailScreen(navController, detailViewModel)
 
                         }
                         composable(

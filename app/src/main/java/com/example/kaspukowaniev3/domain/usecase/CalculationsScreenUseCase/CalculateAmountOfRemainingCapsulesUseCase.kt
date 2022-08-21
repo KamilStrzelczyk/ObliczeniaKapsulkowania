@@ -7,9 +7,9 @@ import javax.inject.Inject
 class CalculateAmountOfRemainingCapsulesUseCase @Inject constructor() {
 
     operator fun invoke(
+        wrongCapsules: String,
         amountOfCapsules: String,
         amountOfFillCapsules: String,
-        wrongCapsules: String,
     ): String = if (isDataCorrect(
             amountOfFillCapsules,
             wrongCapsules,
@@ -19,7 +19,6 @@ class CalculateAmountOfRemainingCapsulesUseCase @Inject constructor() {
     } else {
         EMPTY_STRING
     }
-
 
     private fun isDataCorrect(
         amountOfFillCapsules: String,

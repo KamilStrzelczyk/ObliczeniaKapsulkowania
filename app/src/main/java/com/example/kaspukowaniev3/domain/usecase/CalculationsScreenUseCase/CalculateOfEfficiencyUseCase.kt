@@ -2,29 +2,33 @@ package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import com.example.kaspukowaniev3.presentation.Utils.Companion.VALUE_FOR_EFFICIENCY
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class CalculateOfEfficiencyUseCase @Inject constructor() {
 
     operator fun invoke(
-        amountOfFillCapsules: String,
+        weightOfFinishedProducts: String,
         weightOfPowder: String,
     ): String = if (isDataCorrect(
-            amountOfFillCapsules,
+            weightOfFinishedProducts,
             weightOfPowder,
         )
     ) {
-        ((VALUE_FOR_EFFICIENCY * amountOfFillCapsules.toInt()) / weightOfPowder.toDouble()).toString()
+        ((VALUE_FOR_EFFICIENCY * weightOfFinishedProducts.toDouble()) / weightOfPowder.toDouble())
+            .toBigDecimal()
+            .setScale(1, RoundingMode.HALF_UP)
+            .toString()
     } else {
         EMPTY_STRING
     }
 
     private fun isDataCorrect(
-        amountOfFillCapsules: String,
+        weightOfFinishedProducts: String,
         weightOfPowder: String,
     ) =
-        amountOfFillCapsules.isNotBlank() &&
-                amountOfFillCapsules.toInt() != 0 &&
+        weightOfFinishedProducts.isNotBlank() &&
+                weightOfFinishedProducts.toDouble() != 0.0 &&
                 weightOfPowder.isNotBlank() &&
                 weightOfPowder.toDouble() != 0.0
 }

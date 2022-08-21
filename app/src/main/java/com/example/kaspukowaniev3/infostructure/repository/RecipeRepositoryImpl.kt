@@ -4,13 +4,18 @@ import android.media.DrmInitData
 import androidx.compose.ui.text.font.FontWeight
 import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
+import com.example.kaspukowaniev3.infostructure.database.DAO.RecipeDAO
+import com.example.kaspukowaniev3.infostructure.database.DAO.SeriesDAO
+import com.example.kaspukowaniev3.presentation.Utils
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 
 
-class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
+class RecipeRepositoryImpl @Inject constructor(
+    private val getRecipeDAO: RecipeDAO,
+) : RecipeRepository {
     private val list = listOf(
         Recipe(
             id = 1,
@@ -45,15 +50,15 @@ class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
             sample = 340,
         ),
     )
-    var amountOfCapsules: String = ""
-    var boxWeight: String = ""
-    var weightOfPowder: String = ""
+    private var amountOfCapsules: String = Utils.EMPTY_STRING
+    private var boxWeight: String = Utils.EMPTY_STRING
+    private var weightOfPowder: String = Utils.EMPTY_STRING
 
     override fun getRecipe(id: Int) = list.first { it.id == id }
 
 
     override fun getAll() = list
-    override fun saveData(amountOfCapsules: String, boxWeight: String,  weightOfPowder: String) {
+    override fun saveData(amountOfCapsules: String, boxWeight: String, weightOfPowder: String) {
         this.amountOfCapsules = amountOfCapsules
         this.boxWeight = boxWeight
         this.weightOfPowder = weightOfPowder
@@ -61,4 +66,6 @@ class RecipeRepositoryImpl @Inject constructor() : RecipeRepository {
     }
 
     override fun getAmount(): String = amountOfCapsules
+    override fun getBoxWeight(): String = boxWeight
+    override fun weightOfPowder(): String = weightOfPowder
 }

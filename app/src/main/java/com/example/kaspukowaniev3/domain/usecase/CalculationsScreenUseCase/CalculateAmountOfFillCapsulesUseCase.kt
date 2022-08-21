@@ -12,25 +12,31 @@ class CalculateAmountOfFillCapsulesUseCase @Inject constructor() {
         restOfBoxes: String,
         capsulesGross: String,
     ): String = if (isDataCorrect(
+            boxWeight,
             fullBoxes,
             restOfBoxes,
             capsulesGross,
         )
     ) {
-        (((boxWeight.toInt() * fullBoxes.toInt()) + restOfBoxes.toDouble()) / capsulesGross.toDouble()).toString()
+        (((boxWeight.toInt() * fullBoxes.toInt()) + restOfBoxes.toDouble()) / (capsulesGross.toDouble() / Utils.CHANGE_TO_MILLIGRAM))
+            .toInt()
+            .toString()
     } else {
         EMPTY_STRING
     }
 
     private fun isDataCorrect(
+        boxWeight: String,
         fullBoxes: String,
         restOfBoxes: String,
         capsulesGross: String,
     ) =
-        fullBoxes.isNotBlank() &&
-                restOfBoxes.isNotBlank() &&
-                capsulesGross.isNotBlank() &&
-                fullBoxes.toInt() != 0 &&
-                restOfBoxes.toDouble() != 0.0 &&
-                capsulesGross.toDouble() != 0.0
+        fullBoxes.isNotBlank()
+                && restOfBoxes.isNotBlank()
+                && capsulesGross.isNotBlank()
+                && fullBoxes.toInt() != 0
+                && restOfBoxes.toDouble() != 0.0
+                && capsulesGross.toDouble() != 0.0
+                && boxWeight.toInt() != 0
+                && boxWeight.isNotBlank()
 }
