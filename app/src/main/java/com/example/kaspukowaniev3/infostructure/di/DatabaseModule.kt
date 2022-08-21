@@ -15,6 +15,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class DatabaseModule {
+
     @Provides
     fun provideRecipeDao(appDatabase: AppDatabase): RecipeDAO {
         return appDatabase.getRecipeDAO()

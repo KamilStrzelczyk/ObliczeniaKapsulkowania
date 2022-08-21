@@ -54,11 +54,12 @@ fun CalculationsScreen(
                     value = state.fullBoxes,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onFullBoxesChanged(it) },
-                    label = { Text(text = "") }
+                    label = { Text(state.pc) }
                 )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
+
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
@@ -78,7 +79,7 @@ fun CalculationsScreen(
                     value = state.restOfBoxes,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onRestBoxesChanged(it) },
-                    label =  { Text(text = "") }
+                    label = { Text(state.kg) }
                 )
             }
 

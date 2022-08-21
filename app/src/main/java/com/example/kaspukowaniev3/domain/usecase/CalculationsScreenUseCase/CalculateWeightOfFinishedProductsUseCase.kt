@@ -28,6 +28,6 @@ class CalculateWeightOfFinishedProductsUseCase @Inject constructor() {
                 && fullBoxes.toInt() != 0
                 && restOfBoxes.isNotBlank()
                 && restOfBoxes.toDouble() != 0.0
-                && boxWeight.toInt() != 0
                 && boxWeight.isNotBlank()
+                && boxWeight.toInt() != 0
 }

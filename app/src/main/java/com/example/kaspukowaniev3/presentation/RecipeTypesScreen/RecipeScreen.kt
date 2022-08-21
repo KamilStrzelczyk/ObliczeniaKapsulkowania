@@ -35,10 +35,10 @@ fun RecipeScreen(
         LazyColumn(contentPadding = PaddingValues(15.dp)) {
             items(viewModel.loadData()) {
                 RecipeRow(it,
-                    onClick = { recipeId ->
-                        navController.navigate("${Screen.RecipeDetailScreen.route}/$recipeId")
-//                        onClick = { recipeId ->
-//                            navController.navigate("${Screen.IntroductionOfSeriesScreen.route}/$recipeId")
+//                    onClick = { recipeId ->
+//                        navController.navigate("${Screen.RecipeDetailScreen.route}/$recipeId")
+                        onClick = { recipeId ->
+                            navController.navigate("${Screen.IntroductionOfSeriesScreen.route}/$recipeId")
                     })
 
             }

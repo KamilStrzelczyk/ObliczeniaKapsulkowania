@@ -15,7 +15,7 @@ internal class CalculateAmountOfFillCapsulesUseCaseTest {
     private val expectedResult = ""
 
     @Test
-    fun `WHEN user pass correct data THEN result should be calculated and rounded up`() {
+    fun `WHEN user pass correct data THEN result should be calculated and rounded to int`() {
         val expectedResult = "991568"
         // WHEN
         val result = useCase.invoke(boxWeight, fullBoxes, restOfBoxes, capsulesGross)

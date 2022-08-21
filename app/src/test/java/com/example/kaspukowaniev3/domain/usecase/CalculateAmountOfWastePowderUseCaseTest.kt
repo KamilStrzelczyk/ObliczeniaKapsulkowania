@@ -13,7 +13,7 @@ internal class CalculateAmountOfWastePowderUseCaseTest {
     private val expectedResult = ""
 
     @Test
-    fun `WHEN user pass correct data THEN result should be calculated and rounded up`() {
+    fun `WHEN user pass correct data THEN result should be calculated and rounded up to third places`() {
         val expectedResult = "2.859"
         // WHEN
         val result = useCase.invoke(amountOfFillCapsules, capsulesNett, weightOfPowder)
