@@ -1,3 +1,51 @@
 <resources>
     <string name="app_name">Kaspułkowaniev3</string>
+
+    //RecipeDetailScreen
+    <string name="IntroduceSeriesData"> Wprowadzenie danych serii</string>
+    <string name="DataSeries"> Dane serii</string>
+    <string name="OK">OK</string>
+    <string name="BoxesTime">Czasy pojemników</string>
+    <string name="ChoiceTime"> Wybierz godzine</string>
+    <string name="BoxTime"> Czas pojemnika</string>
+    <string name="weightText">Masa pobranego proszku</string>
+    <string name="amountOfCapsulesText">Pobrana ilość kapsułek</string>
+    <string name="boxText">Ilość kapsułek w pojemniku w kg</string>
+    <string name="boxAmountValueText">Ilość pojemników</string>
+    <string name="amountSampleValueText">Ilość prób</string>
+    <string name="buttonHintText">ROZLICZENIE</string>
+    <string name="theoreticalMassText">Teoretyczna waga gotowego wyrobu</string>
+
+    //CalculationsScreen
+    <string name="fullBoxesHint">Ilość pełnych pojemników</string>
+    <string name="restOfBoxesHint">Ilość z niepełnych pojemników</string>
+    <string name="capsulesGrossHint">Brutto</string>
+    <string name="capsulesNettHint">Netto</string>
+    <string name="wasteOfPowderHint">Odpad Proszku</string>
+    <string name="amountOfFillCapsulesHint">Ilość gotowych kaspułek</string>
+    <string name="efficiencyText">Wydajność</string>
+    <string name="wrongCapsulesHint">Odpad</string>
+    <string name="restOfCapsulesHint">Pozostała ilość kapsułek</string>
+    <string name="weightOfFinishedProductsText">Waga gotowego wyrobu</string>
+    <string name="buttonText">Zapisz dane serii</string>
+    <string name="wrongCapsulesFromStartUpText">Kapsułki z startup</string>
+    <string name="capsuleWeightsLabel">Wagi kapsułek</string>
+    <string name="processWasteLabel">Odpad z procesu</string>
+    <string name="resultLabel">Wynik</string>
+    <string name="topAppBarLabel">Rozliczenie kapsułkowania</string>
+    <string name="kg">kg</string>
+    <string name="mg">mg</string>
+    <string name="pc">szt</string>
+
+    //IntroductionOfSeriesScreen
+
+    <string name="SeriesChoice">Wybor serii</string>
+    <string name="NewSeries">Nowa seria</string>
+    <string name="ExistedSeriesChoice">Wybór istniejącej serii</string>
+    <string name="IntroduceNewsSeries"> Wprowadz nową serie</string>
+    <string name="Add">Dodaj</string>
+    <string name="ChoiceFromExistingSeries">Wybierz z istniejących serii</string>
+
+    //RecipeTypesScreen
+    <string name="recipeChoice">Wybór receptury</string>
 </resources>

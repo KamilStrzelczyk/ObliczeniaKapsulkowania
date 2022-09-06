@@ -5,7 +5,7 @@ import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class CalculateAmountOfBoxesUseCaseTest {
-    
+
     private val useCase = CalculateAmountOfBoxesUseCase()
 
     private val boxWeight = "18"

@@ -50,8 +50,8 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = "${IntroductionOfSeriesScreen.route}/{id}",
                             arguments = listOf(navArgument("id") { type = NavType.IntType })
-                        ) {navBackStackEntry ->
-                            val id: Int = navBackStackEntry.arguments?.getInt("id")?: 0
+                        ) { navBackStackEntry ->
+                            val id: Int = navBackStackEntry.arguments?.getInt("id") ?: 0
                             introductionOfSeriesScreenViewModel.initData(id)
                             IntroductionOfSeriesScreen(
                                 navController, introductionOfSeriesScreenViewModel)

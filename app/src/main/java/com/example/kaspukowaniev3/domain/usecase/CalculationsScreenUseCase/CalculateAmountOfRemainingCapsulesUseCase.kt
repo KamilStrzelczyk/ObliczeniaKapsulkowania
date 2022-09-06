@@ -24,10 +24,10 @@ class CalculateAmountOfRemainingCapsulesUseCase @Inject constructor() {
         amountOfFillCapsules: String,
         wrongCapsules: String,
     ) =
-        amountOfFillCapsules.isNotBlank() &&
-                amountOfFillCapsules.toInt() != 0 &&
-                wrongCapsules.isNotBlank() &&
-                wrongCapsules.toInt() != 0
+        amountOfFillCapsules.isNotBlank()
+                && amountOfFillCapsules.toInt() != 0
+                && wrongCapsules.isNotBlank()
+                && wrongCapsules.toInt() != 0
 
 }
 

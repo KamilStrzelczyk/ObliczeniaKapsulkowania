@@ -8,6 +8,8 @@ import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.domain.repository.SeriesRepository
 import com.example.kaspukowaniev3.domain.usecase.IntroductionOfSeriesScreen.SaveNewSeriesUseCase
 import com.example.kaspukowaniev3.domain.usecase.LoadSeriesUseCase
+import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_INT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,8 +17,6 @@ import javax.inject.Inject
 class IntroductionOfSeriesScreenViewModel @Inject constructor(
     private val loadSeries: LoadSeriesUseCase,
     private val saveNewSeriesUseCase: SaveNewSeriesUseCase,
-    private val Seria :Seria
-
 ) :
     ViewModel() {
 
@@ -27,8 +27,6 @@ class IntroductionOfSeriesScreenViewModel @Inject constructor(
             selectedRecipeId = id
         )
     }
-
-
 
     init {
         state.value = state.value.copy(
@@ -43,8 +41,9 @@ class IntroductionOfSeriesScreenViewModel @Inject constructor(
     }
 
     fun onAddClicked() {
-        saveNewSeriesUseCase.upsertdata (Seria.copy(numberOfSeries = Seria.numberOfSeries)
-                )
+        saveNewSeriesUseCase(
+            state.value.numberOfSeries
+        )
         updateState(state.value.copy(
             showInfoDialog = false
         ))
@@ -74,9 +73,9 @@ class IntroductionOfSeriesScreenViewModel @Inject constructor(
     data class ViewModelState(
         val showInfoDialog: Boolean = false,
         val showInfoDialog2: Boolean = false,
-        val numberOfSeries: Int = 0,
+        val numberOfSeries: Int = EMPTY_INT,
         val enableExistSeriesButton: Boolean = false,
         val listOfSeries: List<Seria> = emptyList(),
-        val selectedRecipeId: Int = 0,
+        val selectedRecipeId: Int = EMPTY_INT,
     )
 }

@@ -9,9 +9,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kaspukowaniev3.R
 import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.model.Seria
 import com.example.kaspukowaniev3.presentation.Screen
@@ -27,7 +29,7 @@ fun IntroductionOfSeriesScreen(
     Scaffold(
         topBar = {
             TopAppBar {
-                Text(text = "Wybor serii")
+                Text(stringResource(id = R.string.SeriesChoice))
 
             }
         }) {
@@ -39,7 +41,7 @@ fun IntroductionOfSeriesScreen(
                 .fillMaxSize()
                 .padding(20.dp)) {
             Button(onClick = { viewModel.onButtonNewSeriesClicked() }) {
-                Text(text = "Nowa seria")
+                Text(stringResource(id = R.string.NewSeries))
             }
 
             Spacer(modifier = Modifier.padding(10.dp))
@@ -47,7 +49,7 @@ fun IntroductionOfSeriesScreen(
             Button(
                 onClick = { viewModel.onButtonExistingSeriesSelectionClicked() },
                 enabled = state.enableExistSeriesButton) {
-                Text(text = "Wybór istniejącej serii")
+                Text(stringResource(id = R.string.ExistedSeriesChoice))
             }
 
         }
@@ -80,7 +82,7 @@ private fun NewSeriesDialog(
     AlertDialog(
         onDismissRequest = {},
         title = {
-            Text("Wprowadz nową serie")
+            Text(stringResource(id = R.string.IntroduceNewsSeries))
         },
 
         text = {
@@ -105,7 +107,7 @@ private fun NewSeriesDialog(
                         navController.navigate("${Screen.RecipeDetailScreen.route}/${state.selectedRecipeId}")
                     }
                 ) {
-                    Text(text = "Dodaj")
+                    Text(stringResource(id = R.string.Add))
                 }
             }
         }
@@ -121,7 +123,7 @@ private fun ExistingSeriesDialog(
 ) {
     AlertDialog(onDismissRequest = { onDismiss() },
         title = {
-            Text(text = "Wybierz z istniejących serii")
+            Text(stringResource(id = R.string.ChoiceFromExistingSeries))
         },
         text = {
             LazyColumn(

@@ -32,11 +32,11 @@ class CalculateAmountOfFillCapsulesUseCase @Inject constructor() {
         capsulesGross: String,
     ) =
         fullBoxes.isNotBlank()
-                && restOfBoxes.isNotBlank()
-                && capsulesGross.isNotBlank()
                 && fullBoxes.toInt() != 0
+                && restOfBoxes.isNotBlank()
                 && restOfBoxes.toDouble() != 0.0
+                && capsulesGross.isNotBlank()
                 && capsulesGross.toDouble() != 0.0
-                && boxWeight.toInt() != 0
                 && boxWeight.isNotBlank()
+                && boxWeight.toInt() != 0
 }

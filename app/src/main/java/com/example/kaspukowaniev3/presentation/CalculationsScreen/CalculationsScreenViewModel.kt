@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase.*
 import com.example.kaspukowaniev3.presentation.Utils
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_DOUBLE
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_INT
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -23,7 +25,7 @@ class CalculationsScreenViewModel @Inject constructor(
     init {
         val amountOfCapsules = recipeRepository.getAmount()
         val boxWeight = recipeRepository.getBoxWeight()
-        val weightOfPowder = recipeRepository.weightOfPowder()
+        val weightOfPowder = recipeRepository.getWeightOfPowder()
         state.value = state.value.copy(
             amountOfCapsules = amountOfCapsules,
             boxWeight = boxWeight,
@@ -53,7 +55,8 @@ class CalculationsScreenViewModel @Inject constructor(
         val efficiency = calculateOfEfficiency(
             weightOfFinishedProducts = state.value.weightOfFinishedProducts,
             weightOfPowder = state.value.weightOfPowder,
-        )
+            wrongCapsulesFromStartUp = state.value.wrongCapsulesFromStartUp,
+            )
         updateState(state.value.copy(
             efficiency = efficiency
         ))
@@ -83,7 +86,8 @@ class CalculationsScreenViewModel @Inject constructor(
         val efficiency = calculateOfEfficiency(
             weightOfFinishedProducts = state.value.weightOfFinishedProducts,
             weightOfPowder = state.value.weightOfPowder,
-        )
+            wrongCapsulesFromStartUp = state.value.wrongCapsulesFromStartUp,
+            )
         updateState(state.value.copy(
             efficiency = efficiency
         ))
@@ -127,45 +131,38 @@ class CalculationsScreenViewModel @Inject constructor(
         ))
     }
 
+    fun onWrongCapsulesFromStartUpChanged(wrongCapsulesFromStartUp: String) {
+        val efficiency = calculateOfEfficiency(
+            wrongCapsulesFromStartUp = wrongCapsulesFromStartUp,
+            weightOfFinishedProducts = state.value.weightOfFinishedProducts,
+            weightOfPowder = state.value.weightOfPowder,
+        )
+        updateState(state.value.copy(
+            efficiency = efficiency,
+            wrongCapsulesFromStartUp = wrongCapsulesFromStartUp,
+        ))
+    }
+
     private fun updateState(state: ViewModelState) {
         this.state.value = state
     }
 
     data class ViewModelState constructor(
         val fullBoxes: String = EMPTY_STRING,
-        val fullBoxesHint: String = "Ilość pełnych pojemników",
         val restOfBoxes: String = EMPTY_STRING,
-        val restOfBoxesHint: String = "Ilość z niepełnych pojemników",
         val capsulesGross: String = EMPTY_STRING,
-        val capsulesGrossHint: String = "Brutto",
         val capsulesNett: String = EMPTY_STRING,
-        val capsulesNettHint: String = "Netto",
-        val wasteOfPowderHint: String = "Odpad Proszku",
         val wasteOfPowder: String = EMPTY_STRING,
         val amountOfFillCapsules: String = EMPTY_STRING,
-        val amountOfFillCapsulesHint: String = "Ilość gotowych kaspułek",
-        val efficiencyText: String = "Wydajność",
         val efficiency: String = EMPTY_STRING,
-        val restOfCapsulesHint: String = "Pozostała ilość kapsułek",
         val restOfCapsules: String = EMPTY_STRING,
         val amountOfCapsules: String = EMPTY_STRING,
         val boxWeight: String = EMPTY_STRING,
-        val wrongCapsulesHint: String = "Odpad",
         val wrongCapsules: String = EMPTY_STRING,
         val weightOfPowder: String = EMPTY_STRING,
-        val weightOfFinishedProductsText: String = "Waga gotowego wyrobu",
         val weightOfFinishedProducts: String = EMPTY_STRING,
-        val buttonText: String = "Zapisz dane serii",
-
-        // LABELS
-        val capsuleWeightsLabel: String = "Wagi kapsułek",
-        val processWasteLabel: String = "Odpad z procesu",
-        val resultLabel: String = "Wynik",
-        val topAppBarLabel: String = "Rozliczenie kapsułkowania",
-
-        // Unit
-        val kg: String = "kg",
-        val mg: String = "mg",
-        val pc: String = "szt.",
+        val wrongCapsulesFromStartUp: String = EMPTY_STRING,
+        val activeRecipeId: Int = EMPTY_INT,
+        val valueForEfficiency: Double = EMPTY_DOUBLE,
     )
 }

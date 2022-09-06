@@ -9,10 +9,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kaspukowaniev3.presentation.RecipeRowData
 import com.example.kaspukowaniev3.presentation.Screen
+import com.example.kaspukowaniev3.R
 
 
 @Composable
@@ -27,7 +29,7 @@ fun RecipeScreen(
     Scaffold(
         topBar = {
             TopAppBar {
-                Text(text = "Wybór receptury")
+                Text(stringResource(R.string.recipeChoice))
 
             }
         }
@@ -37,8 +39,8 @@ fun RecipeScreen(
                 RecipeRow(it,
 //                    onClick = { recipeId ->
 //                        navController.navigate("${Screen.RecipeDetailScreen.route}/$recipeId")
-                        onClick = { recipeId ->
-                            navController.navigate("${Screen.IntroductionOfSeriesScreen.route}/$recipeId")
+                    onClick = { recipeId ->
+                        navController.navigate("${Screen.IntroductionOfSeriesScreen.route}/$recipeId")
                     })
 
             }

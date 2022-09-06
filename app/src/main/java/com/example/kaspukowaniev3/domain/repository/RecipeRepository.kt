@@ -6,8 +6,9 @@ interface RecipeRepository {
 
     fun getRecipe(id: Int): Recipe
     fun getAll(): List<Recipe>
-    fun saveData(amountOfCapsules: String, boxWeight: String, weightOfPowder: String): Unit
+    fun saveData(amountOfCapsules: String, boxWeight: String, weightOfPowder: String, activeRecipeId: Int): Unit
     fun getAmount(): String
     fun getBoxWeight(): String
-    fun weightOfPowder(): String
+    fun getWeightOfPowder(): String
+    fun getActiveRecipeId(): Int
 }

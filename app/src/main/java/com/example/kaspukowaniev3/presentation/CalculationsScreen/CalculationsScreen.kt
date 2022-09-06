@@ -10,9 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.LastBaseline
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavController
+import com.example.kaspukowaniev3.R
 
 @Composable
 
@@ -24,7 +27,7 @@ fun CalculationsScreen(
     Scaffold(
         topBar = {
             TopAppBar {
-                Text(state.topAppBarLabel)
+                Text(stringResource(id = R.string.topAppBarLabel))
             }
         }
     ) {
@@ -42,7 +45,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.fullBoxesHint,
+                    value = stringResource(id = R.string.fullBoxesHint),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -54,7 +57,7 @@ fun CalculationsScreen(
                     value = state.fullBoxes,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onFullBoxesChanged(it) },
-                    label = { Text(state.pc) }
+                    label = { Text(stringResource(id = R.string.pc)) }
                 )
             }
 
@@ -67,7 +70,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.restOfBoxesHint,
+                    value = stringResource(id = R.string.restOfBoxesHint),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -79,13 +82,13 @@ fun CalculationsScreen(
                     value = state.restOfBoxes,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onRestBoxesChanged(it) },
-                    label = { Text(state.kg) }
+                    label = { Text(stringResource(id = R.string.kg)) }
                 )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text(state.capsuleWeightsLabel)
+            Text(stringResource(id = R.string.capsuleWeightsLabel))
 
             Spacer(modifier = Modifier.height(20.dp))
             Row(
@@ -95,7 +98,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.capsulesNettHint,
+                    value = stringResource(id = R.string.capsulesNettHint),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -107,10 +110,9 @@ fun CalculationsScreen(
                     value = state.capsulesNett,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onCapsulesNettChanged(it) },
-                    label = { Text(state.mg) },
+                    label = { Text(stringResource(id = R.string.mg)) },
                 )
             }
-
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -121,7 +123,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.capsulesGrossHint,
+                    value = stringResource(id = R.string.capsulesGrossHint),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -133,13 +135,13 @@ fun CalculationsScreen(
                     value = state.capsulesGross,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onCapsulesGrossChanged(it) },
-                    label = { Text(state.mg) }
+                    label = { Text(stringResource(id = R.string.mg)) }
                 )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text(state.processWasteLabel)
+            Text(stringResource(id = R.string.processWasteLabel))
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -150,7 +152,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.wrongCapsulesHint,
+                    value = stringResource(id = R.string.wrongCapsulesHint),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -162,12 +164,37 @@ fun CalculationsScreen(
                     value = state.wrongCapsules,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { calculationsViewModel.onWrongCapsulesChanged(it) },
-                    label = { Text(state.pc) })
+                    label = { Text(stringResource(id = R.string.pc)) })
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text(state.resultLabel)
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(5.dp),
+                    value = stringResource(id = R.string.wrongCapsulesFromStartUpText),
+                    onValueChange = {},
+                    readOnly = true,
+                )
+
+                TextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(5.dp),
+                    value = state.wrongCapsulesFromStartUp,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    onValueChange = { calculationsViewModel.onWrongCapsulesFromStartUpChanged(it) },
+                    label = { Text(stringResource(id = R.string.kg)) })
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(stringResource(id = R.string.resultLabel))
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -178,7 +205,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.weightOfFinishedProductsText,
+                    value = stringResource(id = R.string.weightOfFinishedProductsText),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -202,7 +229,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.amountOfFillCapsulesHint,
+                    value = stringResource(id = R.string.amountOfFillCapsulesHint),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -226,7 +253,7 @@ fun CalculationsScreen(
                     modifier = Modifier
                         .weight(2f)
                         .padding(5.dp),
-                    value = state.efficiencyText,
+                    value = stringResource(id = R.string.efficiencyText),
                     onValueChange = {},
                     readOnly = true,
                 )
@@ -251,7 +278,7 @@ fun CalculationsScreen(
                         modifier = Modifier
                             .weight(2f)
                             .padding(5.dp),
-                        value = state.restOfCapsulesHint,
+                        value = stringResource(id = R.string.restOfCapsulesHint),
                         onValueChange = {},
                         readOnly = true,
                     )
@@ -280,7 +307,7 @@ fun CalculationsScreen(
                         modifier = Modifier
                             .weight(2f)
                             .padding(5.dp),
-                        value = state.wasteOfPowderHint,
+                        value = stringResource(id = R.string.wasteOfPowderHint),
                         onValueChange = {},
                         readOnly = true,
                     )
@@ -299,7 +326,7 @@ fun CalculationsScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(onClick = { /*TODO*/ }) {
-                Text(state.buttonText)
+                Text(stringResource(id = R.string.buttonText))
             }
         }
     }

@@ -6,10 +6,16 @@ import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfBoxesUseCase
 import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfSamplesUseCase
+import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateTheoreticalMassUseCase
+import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateTimeOfBoxesUseCase
 import com.example.kaspukowaniev3.presentation.Utils
 import com.example.kaspukowaniev3.presentation.Utils.Companion.COMMA
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_DOUBLE
+import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_INT
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalTime
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +23,8 @@ class RecipeDetailScreenViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val calculateAmountOfSamples: CalculateAmountOfSamplesUseCase,
     private val calculateAmountOfBoxes: CalculateAmountOfBoxesUseCase,
+    private val calculateTheoreticalMass: CalculateTheoreticalMassUseCase,
+    private val calculateTimeOfBoxes: CalculateTimeOfBoxesUseCase,
 ) : ViewModel() {
 
     val state = mutableStateOf(ViewModelState())
@@ -33,6 +41,11 @@ class RecipeDetailScreenViewModel @Inject constructor(
 
     fun onWeightChanged(weightOfPowder: String) {
         val newValueWeight = weightOfPowder.replace(COMMA, Utils.DOT)
+        val theoreticalMass = calculateTheoreticalMass(
+            weightOfPowder,
+            recipe.doseWeight,
+            recipe.capsulesGross,
+        )
         val boxAmount = calculateAmountOfBoxes(
             newValueWeight,
             state.value.boxWeight,
@@ -43,6 +56,7 @@ class RecipeDetailScreenViewModel @Inject constructor(
             boxAmount = boxAmount,
             boxSample = sample,
             weightOfPowder = weightOfPowder,
+            theoreticalMass = theoreticalMass
         ))
     }
 
@@ -67,7 +81,7 @@ class RecipeDetailScreenViewModel @Inject constructor(
         ))
     }
 
-    fun onOpenDialogClicked() {
+    fun onOpenInfoDialogClicked() {
         updateState(state.value.copy(
             showInfoDialog = true,
             recipeName = recipe.recipeName,
@@ -84,11 +98,61 @@ class RecipeDetailScreenViewModel @Inject constructor(
         ))
     }
 
-    fun save() {
-        recipeRepository.saveData(state.value.amountOfCapsules,
-            state.value.boxWeight,
-            state.value.weightOfPowder)
+    fun onOpenTimeDialogClicked() {
+        updateState(state.value.copy(
+            showTimeDialog = true,
+        ))
     }
+
+    fun onDismissTimeDialogClicked() {
+        updateState(state.value.copy(
+            showTimeDialog = false,
+        ))
+    }
+
+    fun onOpenTimePickerDialog() {
+        updateState(state.value.copy(
+            showTimePickerDialog = true,
+        ))
+    }
+
+    fun onDismissTimePickerDialog() {
+        updateState(state.value.copy(
+            showTimePickerDialog = false,
+        ))
+    }
+
+
+    fun onTimeChanged(hour: Int, minute: Int) {
+        updateState(state.value.copy(
+            hour = hour,
+            minute = minute,
+            showTimePickerDialog = false,
+        ))
+        onBoxTimeChanged(boxTime = state.value.boxTime)
+    }
+
+    fun onBoxTimeChanged(boxTime: String) {
+        val listTimeBox = calculateTimeOfBoxes(
+            boxTime,
+            hour = state.value.hour,
+            minute = state.value.minute,
+            boxAmount = state.value.boxAmount
+        )
+        updateState(state.value.copy(
+            boxTime = boxTime,
+            listTimeBox = listTimeBox
+        ))
+    }
+
+    fun save() {
+        recipeRepository.saveData(
+            state.value.amountOfCapsules,
+            state.value.boxWeight,
+            state.value.weightOfPowder,
+            recipe.id)
+    }
+
 
     private fun updateState(state: ViewModelState) {
         this.state.value = state
@@ -98,19 +162,20 @@ class RecipeDetailScreenViewModel @Inject constructor(
         val weightOfPowder: String = EMPTY_STRING,
         val amountOfCapsules: String = EMPTY_STRING,
         val boxWeight: String = EMPTY_STRING,
-        val weightHint: String = "Masa pobranego proszku",
-        val amountOfCapsulesHint: String = "Pobrana ilość kapsułek",
-        val boxHint: String = "Ilość kapsułek w pojemniku w kg",
-        val boxAmountValue: String = "Ilość pojemników",
         val boxAmount: String = EMPTY_STRING,
-        val amountSampleValue: String = "Ilość prób",
         val boxSample: String = EMPTY_STRING,
-        val buttonHint: String = "ROZLICZENIE",
         val showInfoDialog: Boolean = false,
+        val showTimeDialog: Boolean = false,
+        val showTimePickerDialog: Boolean = false,
         val recipeName: String = EMPTY_STRING,
-        val doseWeight: Double = 0.0,
-        val capsulesNet: Double = 0.0,
-        val capsulesGross: Double = 0.0,
-        val sample: Int = 0,
+        val doseWeight: Double = EMPTY_DOUBLE,
+        val capsulesNet: Double = EMPTY_DOUBLE,
+        val capsulesGross: Double = EMPTY_DOUBLE,
+        val sample: Int = EMPTY_INT,
+        val theoreticalMass: String = EMPTY_STRING,
+        val hour: Int = Calendar.HOUR_OF_DAY,
+        val minute: Int = Calendar.MINUTE,
+        val boxTime: String = EMPTY_STRING,
+        val listTimeBox: List<LocalTime> = emptyList(),
     )
 }

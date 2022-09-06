@@ -1,21 +1,27 @@
 package com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase
 
+import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
-import com.example.kaspukowaniev3.presentation.Utils.Companion.VALUE_FOR_EFFICIENCY
 import java.math.RoundingMode
+
 import javax.inject.Inject
 
-class CalculateOfEfficiencyUseCase @Inject constructor() {
-
+class CalculateOfEfficiencyUseCase @Inject constructor(
+    private val recipeRepository: RecipeRepository,
+) {
     operator fun invoke(
+        wrongCapsulesFromStartUp: String,
         weightOfFinishedProducts: String,
         weightOfPowder: String,
     ): String = if (isDataCorrect(
+            wrongCapsulesFromStartUp,
             weightOfFinishedProducts,
             weightOfPowder,
         )
     ) {
-        ((VALUE_FOR_EFFICIENCY * weightOfFinishedProducts.toDouble()) / weightOfPowder.toDouble())
+        val valueForEfficiency =
+            recipeRepository.getRecipe(recipeRepository.getActiveRecipeId()).valueForEfficiency
+        ((valueForEfficiency * (weightOfFinishedProducts.toDouble() + wrongCapsulesFromStartUp.toDouble())) / weightOfPowder.toDouble())
             .toBigDecimal()
             .setScale(1, RoundingMode.HALF_UP)
             .toString()
@@ -26,11 +32,14 @@ class CalculateOfEfficiencyUseCase @Inject constructor() {
     private fun isDataCorrect(
         weightOfFinishedProducts: String,
         weightOfPowder: String,
+        wrongCapsulesFromStartUp: String,
     ) =
-        weightOfFinishedProducts.isNotBlank() &&
-                weightOfFinishedProducts.toDouble() != 0.0 &&
-                weightOfPowder.isNotBlank() &&
-                weightOfPowder.toDouble() != 0.0
+        weightOfFinishedProducts.isNotBlank()
+                && weightOfFinishedProducts.toDouble() != 0.0
+                && weightOfPowder.isNotBlank()
+                && weightOfPowder.toDouble() != 0.0
+                && wrongCapsulesFromStartUp.isNotBlank()
+                && wrongCapsulesFromStartUp.toDouble() != 0.0
 }
 
 // 74,37% x masa kapsułek / masa pobranego porszku =

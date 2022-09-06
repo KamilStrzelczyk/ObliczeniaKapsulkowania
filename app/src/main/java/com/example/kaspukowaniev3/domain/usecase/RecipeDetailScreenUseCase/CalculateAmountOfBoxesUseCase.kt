@@ -26,8 +26,8 @@ class CalculateAmountOfBoxesUseCase @Inject constructor() {
         boxWeight: String,
         weightOfPowder: String,
     ) =
-        weightOfPowder.isNotBlank() &&
-                boxWeight.isNotBlank() &&
-                weightOfPowder.toDouble() != 0.0 &&
-                boxWeight.toDouble() != 0.0
+        weightOfPowder.isNotBlank()
+                && weightOfPowder.toDouble() != 0.0
+                && boxWeight.isNotBlank()
+                && boxWeight.toDouble() != 0.0
 }

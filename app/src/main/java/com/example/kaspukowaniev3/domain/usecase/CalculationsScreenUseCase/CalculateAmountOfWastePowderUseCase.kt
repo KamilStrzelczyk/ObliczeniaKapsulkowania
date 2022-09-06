@@ -17,7 +17,7 @@ class CalculateAmountOfWastePowderUseCase @Inject constructor() {
             weightOfPowder,
         )
     ) {
-        (weightOfPowder.toDouble() -(amountOfFillCapsules.toDouble() * (capsulesNett.toDouble()/Utils.CHANGE_TO_MILLIGRAM)))
+        (weightOfPowder.toDouble() - (amountOfFillCapsules.toDouble() * (capsulesNett.toDouble() / Utils.CHANGE_TO_MILLIGRAM)))
             .toBigDecimal()
             .setScale(3, RoundingMode.HALF_UP)
             .toString()
@@ -31,11 +31,11 @@ class CalculateAmountOfWastePowderUseCase @Inject constructor() {
         capsulesNett: String,
         weightOfPowder: String,
     ) =
-        amountOfFillCapsules.isNotBlank() &&
-                capsulesNett.isNotBlank() &&
-                amountOfFillCapsules.toInt() != 0 &&
-                capsulesNett.toDouble() != 0.0 &&
-                weightOfPowder.isNotBlank() &&
-                weightOfPowder.toDouble() != 0.0
+        amountOfFillCapsules.isNotBlank()
+                && amountOfFillCapsules.toInt() != 0
+                && capsulesNett.isNotBlank()
+                && capsulesNett.toDouble() != 0.0
+                && weightOfPowder.isNotBlank()
+                && weightOfPowder.toDouble() != 0.0
 }
 // ( ilosć pełnych kapsułek * waga kapsułki netto) - ilość porsszku

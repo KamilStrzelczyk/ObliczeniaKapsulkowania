@@ -13,15 +13,18 @@ class SeriesRepositoryImpl @Inject constructor(
     SeriesRepository {
     override fun getAllSeries(): List<Seria> {
         return listOf(
-            Seria(1,
+            Seria(
+                1,
                 Recipe(
-                id = 1,
-                recipeName = "RAM/AML 5/5",
-                doseWeight = 0.0002205,
-                capsulesNet = 0.000076,
-                capsulesGross = 0.0002965,
-                sample = 340,
-            ),)
+                    id = 1,
+                    recipeName = "RAM/AML 5/5",
+                    doseWeight = 0.0002155,
+                    capsulesNet = 0.000076,
+                    capsulesGross = 0.0002915,
+                    sample = 340,
+                    valueForEfficiency = 73.93,
+                ),
+            )
         )
     }
 }
