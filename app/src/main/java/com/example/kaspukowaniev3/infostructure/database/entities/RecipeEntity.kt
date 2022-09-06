@@ -7,11 +7,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "recipe_table")
 data class RecipeEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey (autoGenerate = true) val id: Int,
 
     @ColumnInfo(name = "recipe_Name") val recipeName: String,
     @ColumnInfo(name = "dose_Weight") val doseWeight: Double,
     @ColumnInfo(name = "capsules_Net") val capsulesNet: Double,
     @ColumnInfo(name = "capsules_Gross") val capsulesGross: Double,
     @ColumnInfo(name = "sample") val sample: Int,
+    @ColumnInfo(name = "value_For_Efficiency") val valueForEfficiency: Double,
 )

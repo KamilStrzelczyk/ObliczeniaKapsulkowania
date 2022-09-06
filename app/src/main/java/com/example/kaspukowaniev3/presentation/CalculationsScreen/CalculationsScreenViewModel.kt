@@ -2,6 +2,7 @@ package com.example.kaspukowaniev3.presentation.CalculationsScreen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.domain.usecase.CalculationsScreenUseCase.*
 import com.example.kaspukowaniev3.presentation.Utils
@@ -9,6 +10,7 @@ import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_DOUBLE
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_INT
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,63 +36,66 @@ class CalculationsScreenViewModel @Inject constructor(
     }
 
     fun onFullBoxesChanged(fullBoxes: String) {
-        val amountOfFillCapsules = calculateAmountOfFillCapsules(
-            fullBoxes = fullBoxes,
-            boxWeight = state.value.boxWeight,
-            restOfBoxes = state.value.restOfBoxes,
-            capsulesGross = state.value.capsulesGross,
-        )
-        updateState(state.value.copy(
-            amountOfFillCapsules = amountOfFillCapsules,
-            fullBoxes = fullBoxes,
-        ))
-        val amountofweight1 = calculateWeightOfFinishedProducts(
-            fullBoxes = fullBoxes,
-            boxWeight = state.value.boxWeight,
-            restOfBoxes = state.value.restOfBoxes,
-        )
-        updateState(state.value.copy(
-            weightOfFinishedProducts = amountofweight1,
-        ))
-        val efficiency = calculateOfEfficiency(
-            weightOfFinishedProducts = state.value.weightOfFinishedProducts,
-            weightOfPowder = state.value.weightOfPowder,
-            wrongCapsulesFromStartUp = state.value.wrongCapsulesFromStartUp,
+        viewModelScope.launch {
+            val amountOfFillCapsules = calculateAmountOfFillCapsules(
+                fullBoxes = fullBoxes,
+                boxWeight = state.value.boxWeight,
+                restOfBoxes = state.value.restOfBoxes,
+                capsulesGross = state.value.capsulesGross,
             )
-        updateState(state.value.copy(
-            efficiency = efficiency
-        ))
-
+            updateState(state.value.copy(
+                amountOfFillCapsules = amountOfFillCapsules,
+                fullBoxes = fullBoxes,
+            ))
+            val amountofweight1 = calculateWeightOfFinishedProducts(
+                fullBoxes = fullBoxes,
+                boxWeight = state.value.boxWeight,
+                restOfBoxes = state.value.restOfBoxes,
+            )
+            updateState(state.value.copy(
+                weightOfFinishedProducts = amountofweight1,
+            ))
+            val efficiency = calculateOfEfficiency(
+                weightOfFinishedProducts = state.value.weightOfFinishedProducts,
+                weightOfPowder = state.value.weightOfPowder,
+                wrongCapsulesFromStartUp = state.value.wrongCapsulesFromStartUp,
+            )
+            updateState(state.value.copy(
+                efficiency = efficiency
+            ))
+        }
     }
 
     fun onRestBoxesChanged(restOfBoxes: String) {
-        val amountOfFillCapsules = calculateAmountOfFillCapsules(
-            restOfBoxes = restOfBoxes,
-            fullBoxes = state.value.fullBoxes,
-            boxWeight = state.value.boxWeight,
-            capsulesGross = state.value.capsulesGross,
-        )
-        updateState(state.value.copy(
-            amountOfFillCapsules = amountOfFillCapsules,
-            restOfBoxes = restOfBoxes,
-        ))
-        val amountOfWeight = calculateWeightOfFinishedProducts(
-            restOfBoxes = restOfBoxes,
-            boxWeight = state.value.boxWeight,
-            fullBoxes = state.value.fullBoxes,
-        )
-        updateState(state.value.copy(
-            weightOfFinishedProducts = amountOfWeight,
-        ))
-
-        val efficiency = calculateOfEfficiency(
-            weightOfFinishedProducts = state.value.weightOfFinishedProducts,
-            weightOfPowder = state.value.weightOfPowder,
-            wrongCapsulesFromStartUp = state.value.wrongCapsulesFromStartUp,
+        viewModelScope.launch {
+            val amountOfFillCapsules = calculateAmountOfFillCapsules(
+                restOfBoxes = restOfBoxes,
+                fullBoxes = state.value.fullBoxes,
+                boxWeight = state.value.boxWeight,
+                capsulesGross = state.value.capsulesGross,
             )
-        updateState(state.value.copy(
-            efficiency = efficiency
-        ))
+            updateState(state.value.copy(
+                amountOfFillCapsules = amountOfFillCapsules,
+                restOfBoxes = restOfBoxes,
+            ))
+            val amountOfWeight = calculateWeightOfFinishedProducts(
+                restOfBoxes = restOfBoxes,
+                boxWeight = state.value.boxWeight,
+                fullBoxes = state.value.fullBoxes,
+            )
+            updateState(state.value.copy(
+                weightOfFinishedProducts = amountOfWeight,
+            ))
+
+            val efficiency = calculateOfEfficiency(
+                weightOfFinishedProducts = state.value.weightOfFinishedProducts,
+                weightOfPowder = state.value.weightOfPowder,
+                wrongCapsulesFromStartUp = state.value.wrongCapsulesFromStartUp,
+            )
+            updateState(state.value.copy(
+                efficiency = efficiency
+            ))
+        }
     }
 
     fun onCapsulesGrossChanged(capsulesGross: String) {
@@ -132,15 +137,17 @@ class CalculationsScreenViewModel @Inject constructor(
     }
 
     fun onWrongCapsulesFromStartUpChanged(wrongCapsulesFromStartUp: String) {
-        val efficiency = calculateOfEfficiency(
-            wrongCapsulesFromStartUp = wrongCapsulesFromStartUp,
-            weightOfFinishedProducts = state.value.weightOfFinishedProducts,
-            weightOfPowder = state.value.weightOfPowder,
-        )
-        updateState(state.value.copy(
-            efficiency = efficiency,
-            wrongCapsulesFromStartUp = wrongCapsulesFromStartUp,
-        ))
+        viewModelScope.launch {
+            val efficiency = calculateOfEfficiency(
+                wrongCapsulesFromStartUp = wrongCapsulesFromStartUp,
+                weightOfFinishedProducts = state.value.weightOfFinishedProducts,
+                weightOfPowder = state.value.weightOfPowder,
+            )
+            updateState(state.value.copy(
+                efficiency = efficiency,
+                wrongCapsulesFromStartUp = wrongCapsulesFromStartUp,
+            ))
+        }
     }
 
     private fun updateState(state: ViewModelState) {

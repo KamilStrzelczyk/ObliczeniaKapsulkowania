@@ -9,7 +9,7 @@ import javax.inject.Inject
 class CalculateOfEfficiencyUseCase @Inject constructor(
     private val recipeRepository: RecipeRepository,
 ) {
-    operator fun invoke(
+    suspend operator fun invoke(
         wrongCapsulesFromStartUp: String,
         weightOfFinishedProducts: String,
         weightOfPowder: String,

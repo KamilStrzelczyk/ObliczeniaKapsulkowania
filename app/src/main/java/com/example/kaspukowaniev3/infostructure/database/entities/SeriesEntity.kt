@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "series_table")
 data class SeriesEntity(
 
-    @PrimaryKey val id: Int,
+    @PrimaryKey (autoGenerate = true) val id: Int,
 
     @ColumnInfo(name = "numberOfSeries")
     var numberOfSeries: String,

@@ -4,9 +4,15 @@ import com.example.kaspukowaniev3.domain.model.Recipe
 
 interface RecipeRepository {
 
-    fun getRecipe(id: Int): Recipe
-    fun getAll(): List<Recipe>
-    fun saveData(amountOfCapsules: String, boxWeight: String, weightOfPowder: String, activeRecipeId: Int): Unit
+    suspend fun getRecipe(id: Int): Recipe
+    suspend fun getAll(): List<Recipe>
+    fun saveData(
+        amountOfCapsules: String,
+        boxWeight: String,
+        weightOfPowder: String,
+        activeRecipeId: Int,
+    ): Unit
+
     fun getAmount(): String
     fun getBoxWeight(): String
     fun getWeightOfPowder(): String

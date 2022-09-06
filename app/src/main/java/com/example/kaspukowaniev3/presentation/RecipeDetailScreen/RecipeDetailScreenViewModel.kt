@@ -2,6 +2,7 @@ package com.example.kaspukowaniev3.presentation.RecipeDetailScreen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.kaspukowaniev3.domain.model.Recipe
 import com.example.kaspukowaniev3.domain.repository.RecipeRepository
 import com.example.kaspukowaniev3.domain.usecase.RecipeDetailScreenUseCase.CalculateAmountOfBoxesUseCase
@@ -14,6 +15,7 @@ import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_DOUBLE
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_INT
 import com.example.kaspukowaniev3.presentation.Utils.Companion.EMPTY_STRING
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.util.*
 import javax.inject.Inject
@@ -31,12 +33,10 @@ class RecipeDetailScreenViewModel @Inject constructor(
     private lateinit var recipe: Recipe
 
     fun initData(id: Int) {
-        val newRecipe = recipeRepository.getRecipe(id)
-//        if (this::recipe.isInitialized && newRecipe.id != recipe.id) {
-//            updateState(ViewModelState()
-//            )
-//        }
-        recipe = newRecipe
+        viewModelScope.launch {
+            val newRecipe = recipeRepository.getRecipe(id)
+            recipe = newRecipe
+        }
     }
 
     fun onWeightChanged(weightOfPowder: String) {

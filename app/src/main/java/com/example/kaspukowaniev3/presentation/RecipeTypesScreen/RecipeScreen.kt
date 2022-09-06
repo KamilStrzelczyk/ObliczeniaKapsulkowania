@@ -25,6 +25,7 @@ fun RecipeScreen(
     viewModel: RecipeTypesViewModel,
 
     ) {
+    val state = viewModel.state.value
 
     Scaffold(
         topBar = {
@@ -35,7 +36,7 @@ fun RecipeScreen(
         }
     ) {
         LazyColumn(contentPadding = PaddingValues(15.dp)) {
-            items(viewModel.loadData()) {
+            items(state.recipes) {
                 RecipeRow(it,
 //                    onClick = { recipeId ->
 //                        navController.navigate("${Screen.RecipeDetailScreen.route}/$recipeId")
