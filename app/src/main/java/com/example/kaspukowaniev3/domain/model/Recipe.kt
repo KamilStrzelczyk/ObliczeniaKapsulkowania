@@ -8,4 +8,5 @@ data class Recipe(
     val capsulesNet: Double,
     val capsulesGross: Double,
     val sample: Int,
+    val valueForEfficiency: Double,
 )

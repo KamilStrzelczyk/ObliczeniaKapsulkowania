@@ -13,8 +13,8 @@ class CalculateAmountOfBoxesUseCase @Inject constructor() {
         doseWeight: Double,
         capsulesGross: Double,
     ): String = if (isDataCorrect(boxWeight, weightOfPowder)) {
-        val amountOfFullCapsules = (weightOfPowder.toInt() / doseWeight) * capsulesGross
-        (amountOfFullCapsules / boxWeight.toInt())
+        val amountOfFullCapsules = (weightOfPowder.toDouble() / doseWeight) * capsulesGross
+        (amountOfFullCapsules / boxWeight.toDouble())
             .toBigDecimal()
             .setScale(0, RoundingMode.UP)
             .toString()
@@ -26,8 +26,8 @@ class CalculateAmountOfBoxesUseCase @Inject constructor() {
         boxWeight: String,
         weightOfPowder: String,
     ) =
-        weightOfPowder.isNotBlank() &&
-                boxWeight.isNotBlank() &&
-                weightOfPowder.toInt() != 0 &&
-                boxWeight.toInt() != 0
+        weightOfPowder.isNotBlank()
+                && weightOfPowder.toDouble() != 0.0
+                && boxWeight.isNotBlank()
+                && boxWeight.toDouble() != 0.0
 }

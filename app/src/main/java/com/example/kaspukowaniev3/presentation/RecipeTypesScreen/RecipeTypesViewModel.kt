@@ -14,11 +14,5 @@ class RecipeTypesViewModel @Inject constructor(private val getAllRecipes: GetAll
         .map { recipe ->
             RecipeRowData(recipe.id, recipe.recipeName)
         }
-
-    fun onClicked(id: Int) {
-        Log.e("dupa", "$id"
-        )
-    }
-
 }
 
